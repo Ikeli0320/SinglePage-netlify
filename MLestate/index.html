@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>內湖區 現代風設計宅 - 美樂不動產</title>
+    <title>美樂不動產 - 專業房地產服務，為您找到理想的家</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,8 +14,8 @@
             <div class="container">
                 <a href="index.html" class="logo">美樂不動產</a>
                 <ul class="nav-links">
-                    <li><a href="index.html#search-section">物件搜尋</a></li>
-                    <li><a href="index.html#featured-properties">精選物件</a></li>
+                    <li><a href="#search-section">物件搜尋</a></li>
+                    <li><a href="#featured-properties">精選物件</a></li>
                     <li><a href="about.html">關於我們</a></li>
                     <li><a href="news.html">最新消息</a></li>
                     <li><a href="contact.html">聯絡我們</a></li>
@@ -24,71 +24,261 @@
         </nav>
     </header>
 
-    <main class="property-detail-page">
-        <div class="container">
-            <div class="detail-header">
-                <h1>內湖區 現代風設計宅</h1>
-                <p class="price">2,180 萬</p>
+    <main>
+        <!-- 英雄區塊 -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>找到您理想的家</h1>
+                <p>專業的房地產服務，為您提供最優質的購屋體驗</p>
+                <a href="#search-section" class="cta-button">立即搜尋</a>
             </div>
-
-            <div class="image-gallery">
-                <div class="main-image">
-                    <img src="https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                        alt="主要客廳照片">
-                </div>
-                <div class="thumbnail-images">
-                    <img src="https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=400"
-                        alt="客廳縮圖" class="active">
-                    <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=400"
-                        alt="臥室縮圖">
-                    <img src="https://images.pexels.com/photos/2251247/pexels-photo-2251247.jpeg?auto=compress&cs=tinysrgb&w=400"
-                        alt="廚房縮圖">
-                    <img src="https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=400"
-                        alt="書房縮圖">
-                </div>
+            <div class="hero-image">
+                <img src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                    alt="豪華住宅">
             </div>
+        </section>
 
-            <div class="detail-grid">
-                <div class="property-features">
-                    <h2>物件特色</h2>
-                    <ul class="features-list">
-                        <li><strong>地址:</strong> 台北市內湖區星雲街</li>
-                        <li><strong>類型:</strong> 電梯大樓</li>
-                        <li><strong>格局:</strong> 2房 / 2廳 / 1衛</li>
-                        <li><strong>坪數:</strong> 35.8坪 (含車位)</li>
-                        <li><strong>樓層:</strong> 7F / 12F</li>
-                        <li><strong>屋齡:</strong> 5年</li>
-                    </ul>
-                    <h2>特色描述</h2>
-                    <p>全新設計師裝潢，現代簡約風格，採光通風極佳。近AIT、內湖科學園區，生活機能完善。一層兩戶，住戶單純。附坡道平面車位，歡迎預約賞屋。</p>
-                </div>
-                <div class="agent-contact">
-                    <div class="agent-info">
-                        <img src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=400"
-                            alt="經紀人照片">
-                        <h3>王牌經紀人</h3>
-                        <p>陳先生 (Mr. Chen)</p>
-                        <p class="phone">電話: 0912-345-678</p>
+        <!-- 搜尋區塊 -->
+        <section id="search-section" class="search-section">
+            <div class="container">
+                <h2>智慧搜尋</h2>
+                <div class="search-form">
+                    <div class="search-row">
+                        <select class="search-input">
+                            <option value="">選擇地區</option>
+                            <option value="neihu">內湖區</option>
+                            <option value="xinyi">信義區</option>
+                            <option value="songshan">松山區</option>
+                            <option value="dazhi">大直區</option>
+                        </select>
+                        <select class="search-input">
+                            <option value="">房屋類型</option>
+                            <option value="apartment">電梯大樓</option>
+                            <option value="house">透天厝</option>
+                            <option value="villa">別墅</option>
+                            <option value="office">商辦</option>
+                        </select>
+                        <select class="search-input">
+                            <option value="">價格範圍</option>
+                            <option value="1000-2000">1000-2000萬</option>
+                            <option value="2000-3000">2000-3000萬</option>
+                            <option value="3000-5000">3000-5000萬</option>
+                            <option value="5000+">5000萬以上</option>
+                        </select>
                     </div>
-                    <form class="contact-form">
-                        <h3>預約看屋</h3>
-                        <input type="text" placeholder="您的姓名" required>
-                        <input type="tel" placeholder="您的聯絡電話" required>
-                        <input type="email" placeholder="您的電子郵件">
-                        <textarea placeholder="我想了解更多資訊..." rows="4"></textarea>
-                        <button type="submit">送出預約</button>
-                    </form>
+                    <div class="search-row">
+                        <select class="search-input">
+                            <option value="">房間數</option>
+                            <option value="1">1房</option>
+                            <option value="2">2房</option>
+                            <option value="3">3房</option>
+                            <option value="4+">4房以上</option>
+                        </select>
+                        <select class="search-input">
+                            <option value="">坪數範圍</option>
+                            <option value="20-30">20-30坪</option>
+                            <option value="30-50">30-50坪</option>
+                            <option value="50-80">50-80坪</option>
+                            <option value="80+">80坪以上</option>
+                        </select>
+                        <button type="submit" class="search-button">搜尋物件</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- 精選物件 -->
+        <section id="featured-properties" class="featured-properties">
+            <div class="container">
+                <h2>精選物件</h2>
+                <div class="properties-grid">
+                    <div class="property-card">
+                        <div class="property-image">
+                            <img src="https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=400"
+                                alt="內湖現代宅">
+                            <span class="property-tag">熱門</span>
+                        </div>
+                        <div class="property-info">
+                            <h3>內湖區 現代風設計宅</h3>
+                            <p class="property-location">台北市內湖區星雲街</p>
+                            <p class="property-details">2房2廳1衛 | 35.8坪 | 7F/12F</p>
+                            <p class="property-price">2,180萬</p>
+                            <a href="property-detail.html" class="view-details">查看詳情</a>
+                        </div>
+                    </div>
+
+                    <div class="property-card">
+                        <div class="property-image">
+                            <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=400"
+                                alt="信義豪宅">
+                            <span class="property-tag">新上架</span>
+                        </div>
+                        <div class="property-info">
+                            <h3>信義區 景觀豪宅</h3>
+                            <p class="property-location">台北市信義區松仁路</p>
+                            <p class="property-details">3房2廳2衛 | 68.5坪 | 15F/25F</p>
+                            <p class="property-price">4,580萬</p>
+                            <a href="property-detail.html" class="view-details">查看詳情</a>
+                        </div>
+                    </div>
+
+                    <div class="property-card">
+                        <div class="property-image">
+                            <img src="https://images.pexels.com/photos/2251247/pexels-photo-2251247.jpeg?auto=compress&cs=tinysrgb&w=400"
+                                alt="大直別墅">
+                            <span class="property-tag">稀有</span>
+                        </div>
+                        <div class="property-info">
+                            <h3>大直區 獨棟別墅</h3>
+                            <p class="property-location">台北市中山區大直街</p>
+                            <p class="property-details">4房3廳3衛 | 120坪 | 獨棟</p>
+                            <p class="property-price">8,900萬</p>
+                            <a href="property-detail.html" class="view-details">查看詳情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-more">
+                    <a href="#" class="view-more-button">查看更多物件</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 服務介紹 -->
+        <section class="services-section">
+            <div class="container">
+                <h2>我們的服務</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🏠</div>
+                        <h3>房屋買賣</h3>
+                        <p>專業的房屋買賣服務，從估價到成交，全程專業協助</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📋</div>
+                        <h3>租賃服務</h3>
+                        <p>提供住宅、商辦租賃服務，快速找到理想租屋</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💰</div>
+                        <h3>投資諮詢</h3>
+                        <p>專業的房地產投資分析，助您做出最佳投資決策</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📊</div>
+                        <h3>市場分析</h3>
+                        <p>提供最新的房地產市場趨勢分析與報告</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 公司優勢 -->
+        <section class="advantages-section">
+            <div class="container">
+                <h2>為什麼選擇美樂不動產</h2>
+                <div class="advantages-grid">
+                    <div class="advantage-item">
+                        <h3>20年專業經驗</h3>
+                        <p>深耕台北房地產市場20年，擁有豐富的實戰經驗</p>
+                    </div>
+                    <div class="advantage-item">
+                        <h3>專業團隊</h3>
+                        <p>擁有專業的房地產經紀人團隊，提供最優質的服務</p>
+                    </div>
+                    <div class="advantage-item">
+                        <h3>透明收費</h3>
+                        <p>收費標準透明公開，無隱藏費用，讓您安心交易</p>
+                    </div>
+                    <div class="advantage-item">
+                        <h3>售後服務</h3>
+                        <p>成交後持續提供售後服務，確保您的權益</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 最新消息 -->
+        <section class="news-section">
+            <div class="container">
+                <h2>最新消息</h2>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <div class="news-date">2025.01.15</div>
+                        <h3>2025年台北房市展望報告出爐</h3>
+                        <p>最新出爐的房市展望報告顯示，台北市精華區房價穩中有升...</p>
+                        <a href="news.html" class="read-more">閱讀更多</a>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-date">2025.01.10</div>
+                        <h3>內湖科學園區周邊房價分析</h3>
+                        <p>隨著科技產業發展，內湖科學園區周邊房價持續上漲...</p>
+                        <a href="news.html" class="read-more">閱讀更多</a>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-date">2025.01.05</div>
+                        <h3>購屋貸款優惠方案</h3>
+                        <p>配合政府政策，推出多項購屋貸款優惠方案...</p>
+                        <a href="news.html" class="read-more">閱讀更多</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 聯絡我們 -->
+        <section class="contact-section">
+            <div class="container">
+                <h2>立即聯絡我們</h2>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>聯絡資訊</h3>
+                        <p><strong>地址：</strong>台北市內湖區成功路四段168號</p>
+                        <p><strong>電話：</strong>(02) 2792-3456</p>
+                        <p><strong>傳真：</strong>(02) 2792-3457</p>
+                        <p><strong>營業時間：</strong>週一至週日 9:00-21:00</p>
+                    </div>
+                    <div class="contact-form">
+                        <h3>免費諮詢</h3>
+                        <form>
+                            <input type="text" placeholder="您的姓名" required>
+                            <input type="tel" placeholder="聯絡電話" required>
+                            <input type="email" placeholder="電子郵件">
+                            <textarea placeholder="請描述您的需求..." rows="4"></textarea>
+                            <button type="submit">送出諮詢</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 美樂不動產. All Rights Reserved.</p>
-            <p>地址：您的公司地址 | 電話：(02) 1234-5678</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>美樂不動產</h4>
+                    <p>專業的房地產服務，為您找到理想的家</p>
+                </div>
+                <div class="footer-section">
+                    <h4>服務項目</h4>
+                    <ul>
+                        <li><a href="#">房屋買賣</a></li>
+                        <li><a href="#">租賃服務</a></li>
+                        <li><a href="#">投資諮詢</a></li>
+                        <li><a href="#">市場分析</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>聯絡我們</h4>
+                    <p>電話：(02) 2792-3456</p>
+                    <p>地址：台北市內湖區成功路四段168號</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 美樂不動產. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
+
     <script src="script.js"></script>
 </body>
 
