@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯絡我們 - 美樂不動產</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">美樂不動產</a>
+                <ul class="nav-links">
+                    <li><a href="index.html#search-section">物件搜尋</a></li>
+                    <li><a href="index.html#featured-properties">精選物件</a></li>
+                    <li><a href="about.html">關於我們</a></li>
+                    <li><a href="news.html">最新消息</a></li>
+                    <li><a href="contact.html" class="active">聯絡我們</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="contact-page">
+        <div class="container">
+            <div class="page-header">
+                <h1>聯絡我們</h1>
+                <p class="subtitle">隨時為您提供專業的不動產諮詢服務</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-grid">
+                    <section class="contact-info">
+                        <h2>聯絡資訊</h2>
+                        <div class="info-items">
+                            <div class="info-item">
+                                <div class="icon">📍</div>
+                                <div class="info-content">
+                                    <h3>公司地址</h3>
+                                    <p>台北市內湖區成功路四段168號</p>
+                                    <p>美樂大樓 3樓</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <div class="icon">📞</div>
+                                <div class="info-content">
+                                    <h3>聯絡電話</h3>
+                                    <p>總機：(02) 1234-5678</p>
+                                    <p>傳真：(02) 1234-5679</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <div class="icon">📧</div>
+                                <div class="info-content">
+                                    <h3>電子郵件</h3>
+                                    <p>服務信箱：service@mlestate.com</p>
+                                    <p>諮詢信箱：info@mlestate.com</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <div class="icon">🕒</div>
+                                <div class="info-content">
+                                    <h3>營業時間</h3>
+                                    <p>週一至週五：09:00-18:00</p>
+                                    <p>週六：09:00-17:00</p>
+                                    <p>週日：休息</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="contact-form-section">
+                        <h2>線上諮詢</h2>
+                        <form class="contact-form">
+                            <div class="form-group">
+                                <label for="name">姓名 *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">聯絡電話 *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">電子郵件</label>
+                                <input type="email" id="email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="service">服務需求</label>
+                                <select id="service" name="service">
+                                    <option value="">請選擇服務項目</option>
+                                    <option value="buy">購屋諮詢</option>
+                                    <option value="sell">售屋服務</option>
+                                    <option value="rent">租賃服務</option>
+                                    <option value="investment">投資分析</option>
+                                    <option value="other">其他服務</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="budget">預算範圍</label>
+                                <select id="budget" name="budget">
+                                    <option value="">請選擇預算範圍</option>
+                                    <option value="under-1000">1000萬以下</option>
+                                    <option value="1000-2000">1000-2000萬</option>
+                                    <option value="2000-3000">2000-3000萬</option>
+                                    <option value="3000-5000">3000-5000萬</option>
+                                    <option value="over-5000">5000萬以上</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="area">感興趣區域</label>
+                                <select id="area" name="area">
+                                    <option value="">請選擇區域</option>
+                                    <option value="neihu">內湖區</option>
+                                    <option value="nangang">南港區</option>
+                                    <option value="songshan">松山區</option>
+                                    <option value="xinyi">信義區</option>
+                                    <option value="other">其他區域</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">詳細需求說明</label>
+                                <textarea id="message" name="message" rows="5"
+                                    placeholder="請詳細描述您的需求，我們將為您提供最適合的建議..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="newsletter" value="yes">
+                                    <span class="checkmark"></span>
+                                    訂閱最新物件資訊與市場分析
+                                </label>
+                            </div>
+                            <button type="submit" class="submit-btn">送出諮詢</button>
+                        </form>
+                    </section>
+                </div>
+
+                <section class="team-contact">
+                    <h2>專業團隊聯絡方式</h2>
+                    <div class="team-grid">
+                        <div class="team-card">
+                            <img src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=400"
+                                alt="陳經理">
+                            <h3>陳經理</h3>
+                            <p class="position">資深不動產顧問</p>
+                            <p class="phone">📞 0912-345-678</p>
+                            <p class="email">📧 chen@mlestate.com</p>
+                            <p class="specialty">專精：內湖區豪宅市場</p>
+                        </div>
+                        <div class="team-card">
+                            <img src="https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?auto=compress&cs=tinysrgb&w=400"
+                                alt="林小姐">
+                            <h3>林小姐</h3>
+                            <p class="position">投資顧問</p>
+                            <p class="phone">📞 0923-456-789</p>
+                            <p class="email">📧 lin@mlestate.com</p>
+                            <p class="specialty">專精：投資分析與規劃</p>
+                        </div>
+                        <div class="team-card">
+                            <img src="https://images.pexels.com/photos/3777946/pexels-photo-3777946.jpeg?auto=compress&cs=tinysrgb&w=400"
+                                alt="王先生">
+                            <h3>王先生</h3>
+                            <p class="position">租賃專員</p>
+                            <p class="phone">📞 0934-567-890</p>
+                            <p class="email">📧 wang@mlestate.com</p>
+                            <p class="specialty">專精：租賃市場與客戶服務</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="map-section">
+                    <h2>公司位置</h2>
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.5!2d121.5!3d25.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDAwJzAwLjAiTiAxMjHCsDMwJzAwLjAiRQ!5e0!3m2!1sen!2stw!4v1234567890"
+                            width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 美樂不動產. All Rights Reserved.</p>
+            <p>地址：台北市內湖區成功路四段 | 電話：(02) 1234-5678</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
