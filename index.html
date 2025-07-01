@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Page 專案集</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
+                Single Page 專案集
+            </h1>
+            <p class="text-xl text-white/90 max-w-3xl mx-auto">
+                這是一個用來存放 Google Gemini Deep Research 後再使用 Canvas 產生出來的 Single Page 專案集合。每個頁面都專注於探索各種有趣議題，提供深入的分析和互動式體驗。
+            </p>
+        </header>
+
+        <!-- Features -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-white text-center mb-8">🎯 專案特色</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card rounded-xl p-6 text-center">
+                    <div class="text-4xl mb-4">🔍</div>
+                    <h3 class="text-lg font-bold mb-2">深度研究</h3>
+                    <p class="text-gray-600">基於 Google Gemini 的深度研究結果</p>
+                </div>
+                <div class="card rounded-xl p-6 text-center">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h3 class="text-lg font-bold mb-2">互動體驗</h3>
+                    <p class="text-gray-600">使用 Canvas 技術打造豐富的視覺化內容</p>
+                </div>
+                <div class="card rounded-xl p-6 text-center">
+                    <div class="text-4xl mb-4">📱</div>
+                    <h3 class="text-lg font-bold mb-2">單頁應用</h3>
+                    <p class="text-gray-600">每個議題都是獨立的單頁應用程式</p>
+                </div>
+                <div class="card rounded-xl p-6 text-center">
+                    <div class="text-4xl mb-4">📐</div>
+                    <h3 class="text-lg font-bold mb-2">響應式設計</h3>
+                    <p class="text-gray-600">支援各種裝置和螢幕尺寸</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-white text-center mb-8">📁 專案內容</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card rounded-xl p-8">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">🇰🇷</span>
+                        <h3 class="text-2xl font-bold">首爾家庭探索之旅</h3>
+                    </div>
+                    <p class="text-white/90 mb-6">一個完整的首爾旅遊規劃工具，提供6天詳細行程規劃、交通成本比較分析、美食與購物清單，以及互動式任務管理。</p>
+                    <div class="space-y-2 mb-6">
+                        <div class="flex items-center">
+                            <span class="mr-2">📅</span>
+                            <span>6天詳細行程規劃</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="mr-2">🚇</span>
+                            <span>交通成本比較分析</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="mr-2">🍽️</span>
+                            <span>美食與購物清單</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="mr-2">🎯</span>
+                            <span>互動式任務管理</span>
+                        </div>
+                    </div>
+                    <a href="koreatravel.html"
+                        class="inline-block bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        查看專案 →
+                    </a>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card rounded-xl p-8">
+                    <div class="flex items-center mb-4">
+                        <span class="text-3xl mr-3">🚗</span>
+                        <h3 class="text-2xl font-bold">汽車關稅調降衝擊模擬器</h3>
+                    </div>
+                    <p class="text-white/90 mb-6">分析進口關稅調降對台灣汽車市場的影響，提供國產車vs進口車競爭分析、威脅等級評估、品牌影響力排名，以及市場衝擊預測。</p>
+                    <div class="space-y-2 mb-6">
+                        <div class="flex items-center">
+                            <span class="mr-2">🚗</span>
+                            <span>國產車 vs 進口車競爭分析</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="mr-2">📊</span>
+                            <span>威脅等級評估</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="mr-2">🎯</span>
+                            <span>品牌影響力排名</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="mr-2">💡</span>
+                            <span>市場衝擊預測</span>
+                        </div>
+                    </div>
+                    <a href="customs-tax-simulation.html"
+                        class="inline-block bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        查看專案 →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-white text-center mb-8">🛠️ 技術架構</h2>
+            <div class="card rounded-xl p-8">
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div class="tech-badge rounded-lg p-4 text-center">
+                        <div class="text-2xl mb-2">🌐</div>
+                        <div class="font-semibold">HTML5</div>
+                    </div>
+                    <div class="tech-badge rounded-lg p-4 text-center">
+                        <div class="text-2xl mb-2">🎨</div>
+                        <div class="font-semibold">CSS3</div>
+                    </div>
+                    <div class="tech-badge rounded-lg p-4 text-center">
+                        <div class="text-2xl mb-2">⚡</div>
+                        <div class="font-semibold">JavaScript</div>
+                    </div>
+                    <div class="tech-badge rounded-lg p-4 text-center">
+                        <div class="text-2xl mb-2">🎯</div>
+                        <div class="font-semibold">Tailwind CSS</div>
+                    </div>
+                    <div class="tech-badge rounded-lg p-4 text-center">
+                        <div class="text-2xl mb-2">📊</div>
+                        <div class="font-semibold">Chart.js</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Start -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-white text-center mb-8">🚀 快速開始</h2>
+            <div class="card rounded-xl p-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">1️⃣</div>
+                        <h3 class="text-lg font-bold mb-2">克隆專案</h3>
+                        <p class="text-gray-600">將專案複製到本地環境</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">2️⃣</div>
+                        <h3 class="text-lg font-bold mb-2">啟動伺服器</h3>
+                        <p class="text-gray-600">使用 HTTP 伺服器開啟專案</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">3️⃣</div>
+                        <h3 class="text-lg font-bold mb-2">開始探索</h3>
+                        <p class="text-gray-600">在瀏覽器中查看專案內容</p>
+                    </div>
+                </div>
+
+                <div class="mt-8 p-6 bg-gray-50 rounded-lg">
+                    <h4 class="font-bold mb-4">本地開發伺服器指令：</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="bg-gray-100 p-3 rounded">
+                            <span class="font-mono">python -m http.server 8000</span>
+                        </div>
+                        <div class="bg-gray-100 p-3 rounded">
+                            <span class="font-mono">npx serve .</span>
+                        </div>
+                        <div class="bg-gray-100 p-3 rounded">
+                            <span class="font-mono">php -S localhost:8000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-white text-center mb-8">📊 專案統計</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="card rounded-xl p-6 text-center">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">2</div>
+                    <div class="text-gray-600">總專案數</div>
+                </div>
+                <div class="card rounded-xl p-6 text-center">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">5</div>
+                    <div class="text-gray-600">技術棧</div>
+                </div>
+                <div class="card rounded-xl p-6 text-center">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">🇹🇼</div>
+                    <div class="text-gray-600">繁體中文</div>
+                </div>
+                <div class="card rounded-xl p-6 text-center">
+                    <div class="text-3xl font-bold text-green-600 mb-2">✅</div>
+                    <div class="text-gray-600">已部署</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center">
+            <div class="card rounded-xl p-8">
+                <h3 class="text-2xl font-bold mb-4">🤝 貢獻</h3>
+                <p class="text-gray-600 mb-4">
+                    歡迎提出建議和改進意見！每個專案都是基於深度研究結果，旨在提供有價值的資訊和互動體驗。
+                </p>
+                <div class="text-sm text-gray-500">
+                    <p>最後更新: 2025年1月</p>
+                    <p>部署平台: Netlify</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
