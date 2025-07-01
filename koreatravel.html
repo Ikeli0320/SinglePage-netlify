@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家庭探索之旅-首爾</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral & Muted Teal -->
+    <!-- Application Structure Plan: The SPA uses a top navigation bar to switch between four main views: a dashboard-style 'Overview', a detailed daily 'Itinerary' timeline, an interactive 'Transport Guide' with a cost comparison chart, and functional 'Checklists'. This task-oriented structure breaks down the dense report into manageable, interactive sections. It prioritizes the user's primary goals—understanding the daily plan, making transport decisions, and tracking shopping—over a rigid, linear document format, enhancing usability and reducing cognitive load. -->
+    <!-- Visualization & Content Choices: Report Info: Taxi vs Metro Costs -> Goal: Compare -> Viz: Interactive Bar Chart -> Interaction: Dropdown to select route updates chart -> Justification: Transforms a static table into an engaging decision-making tool. Library: Chart.js (Canvas). Report Info: Daily schedule -> Goal: Organize -> Presentation: Vertical timeline with icons -> Interaction: Clickable map links, toggles for alternate plans -> Justification: Fulfills user's explicit design request for a timeline layout, enhances clarity and actionability. Method: HTML/Tailwind. Report Info: Shopping/Food lists -> Goal: Organize -> Presentation: Collapsible checklists -> Interaction: Users can check off items -> Justification: Provides a practical, interactive tool for use during the trip. Method: HTML. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #fdfcf9;
+            color: #4a4a4a;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            border-bottom-color: #14B8A6;
+            color: #0F766E;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 2.25rem;
+            left: 1.1rem;
+            bottom: 0;
+            width: 2px;
+            background-color: #e5e7eb;
+            z-index: 0;
+        }
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        .btn-primary {
+            background-color: #14B8A6;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #0F766E;
+        }
+        .btn-secondary {
+            background-color: #e5e7eb;
+            color: #374151;
+            transition: background-color 0.3s;
+        }
+        .btn-secondary:hover {
+            background-color: #d1d5db;
+        }
+        .card {
+            background-color: white;
+            border: 1px solid #f3f4f6;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 40vh;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl md:text-2xl font-bold text-gray-800">首爾家庭探索之旅</h1>
+                    <p class="text-sm text-gray-500">2025/07/19 - 2025/07/24</p>
+                </div>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#overview" class="nav-link active px-1 py-2 text-sm font-medium">總覽</a>
+                    <a href="#itinerary" class="nav-link px-1 py-2 text-sm font-medium">每日計畫</a>
+                    <a href="#transport" class="nav-link px-1 py-2 text-sm font-medium">交通指南</a>
+                    <a href="#checklist" class="nav-link px-1 py-2 text-sm font-medium">任務清單</a>
+                </nav>
+                 <div class="md:hidden">
+                    <select id="mobile-nav" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm">
+                        <option value="overview">總覽</option>
+                        <option value="itinerary">每日計畫</option>
+                        <option value="transport">交通指南</option>
+                        <option value="checklist">任務清單</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <!-- Overview Section -->
+        <section id="overview" class="scroll-mt-20 space-y-8">
+            <h2 class="text-3xl font-bold text-gray-900 border-l-4 border-teal-500 pl-4">行程總覽</h2>
+            <p class="text-gray-600">歡迎來到您的專屬首爾行程儀表板。這裡匯總了本次旅程最核心的資訊，包含航班、住宿、以及關鍵的交通決策建議。您可以從這裡開始，快速掌握旅程的每一個重要環節。</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card rounded-xl p-6">
+                    <h3 class="text-xl font-bold text-teal-700 mb-4 flex items-center"><span class="text-2xl mr-3">✈️</span>航班資訊</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-semibold">【去程】大韓航空 KE186</p>
+                            <p class="text-sm text-gray-600">7/19 (六) 13:20 台北桃園 (TPE) → 16:50 首爾仁川 (ICN)</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold">【回程】大韓航空 KE187</p>
+                            <p class="text-sm text-gray-600">7/24 (四) 16:10 首爾仁川 (ICN) → 17:50 台北桃園 (TPE)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card rounded-xl p-6">
+                    <h3 class="text-xl font-bold text-teal-700 mb-4 flex items-center"><span class="text-2xl mr-3">🏠</span>住宿資訊</h3>
+                    <div class="space-y-2">
+                        <p class="font-semibold">弘大安妮之家 (Anne house in Hongdae)</p>
+                        <p class="text-sm text-gray-600">地址: Room 175, Magellan 21 Officetel, Yanghwa-ro, Mapo-gu, Seoul</p>
+                        <a href="https://map.naver.com/p/entry/place/13371694" target="_blank" class="text-sm text-teal-600 hover:text-teal-800">在 Naver Map 開啟</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card rounded-xl p-6">
+                <h3 class="text-xl font-bold text-teal-700 mb-4 flex items-center"><span class="text-2xl mr-3">💡</span>關鍵後勤提醒</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-4 bg-teal-50 rounded-lg">
+                        <h4 class="font-bold mb-2">💳 T-Money 卡</h4>
+                        <p class="text-sm text-gray-700">首爾必備交通卡，可在機場便利商店購買與儲值。建議每人一張，初次儲值 ₩20,000。</p>
+                    </div>
+                    <div class="p-4 bg-amber-50 rounded-lg">
+                        <h4 class="font-bold mb-2">🗺️ Naver Map</h4>
+                        <p class="text-sm text-gray-700">韓國自由行必備導航App。Google Maps功能有限。請務必提前下載並熟悉使用。</p>
+                    </div>
+                    <div class="p-4 bg-rose-50 rounded-lg">
+                        <h4 class="font-bold mb-2">⚖️ 負重管理</h4>
+                        <p class="text-sm text-gray-700">重度購物行程後，策略性使用計程車返回住宿是提升旅遊品質的關鍵。避免提重物擠地鐵。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card rounded-xl p-6">
+                <h3 class="text-xl font-bold text-teal-700 mb-4 flex items-center"><span class="text-2xl mr-3">🎟️</span>關鍵預訂與購票計畫</h3>
+                <p class="text-sm text-gray-600 mb-4">首爾部分熱門景點與表演門票非常搶手，提前線上預訂不僅能確保入場，通常還能享有折扣。以下是建議您優先處理的項目：</p>
+                <div class="space-y-4">
+                    <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <h4 class="font-bold text-green-800">愛寶樂園門票 (Day 4)</h4>
+                        <p class="text-sm text-gray-700 mt-1">透過Klook、KKday等平台預購電子票券，可免去現場排隊購票的時間，且常有季節性優惠。建議出發前1-2週完成預訂。</p>
+                    </div>
+                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <h4 class="font-bold text-blue-800">亂打秀 (NANTA) 門票 (Day 3)</h4>
+                        <p class="text-sm text-gray-700 mt-1">此表演非常熱門，強烈建議提前預訂才能選到好座位。可透過官網或Klook等平台預訂。建議出發前2-4週完成預訂，以確保有理想的場次與座位。</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Itinerary Section -->
+        <section id="itinerary" class="scroll-mt-20 space-y-12 mt-16">
+            <h2 class="text-3xl font-bold text-gray-900 border-l-4 border-teal-500 pl-4">每日計畫</h2>
+            <p class="text-gray-600">這裡是您每日的詳細行動計畫。我們將行程拆解成一個個清晰的步驟，包含交通、景點、餐飲與購物，並整合了關鍵的後勤考量，如「任務閉環」設計，確保您每天的旅程都有始有終。</p>
+            
+            <div id="itinerary-content" class="space-y-12"></div>
+        </section>
+
+        <!-- Transport Section -->
+        <section id="transport" class="scroll-mt-20 space-y-8 mt-16">
+            <h2 class="text-3xl font-bold text-gray-900 border-l-4 border-teal-500 pl-4">交通指南：地鐵 vs. 計程車</h2>
+            <p class="text-gray-600">您提出的「四人搭地鐵是否比計程車貴」是個很好的問題。答案是「看情況」。我們為您建立了一個互動決策模型。您可以從下方選擇路線，圖表將即時顯示四人搭乘地鐵的總花費與計程車的預估費用區間，幫助您在不同情境下做出最聰明的選擇。</p>
+            
+            <div class="card rounded-xl p-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-teal-700 mb-2 md:mb-0">交通成本互動分析</h3>
+                    <div class="flex items-center space-x-2">
+                         <label for="route-select" class="text-sm font-medium text-gray-700">選擇路線:</label>
+                         <select id="route-select" class="block w-full md:w-auto rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm">
+                         </select>
+                    </div>
+                </div>
+                <div id="transport-chart-container" class="chart-container">
+                    <canvas id="transportChart"></canvas>
+                </div>
+                <div id="transport-recommendation" class="mt-4 p-4 bg-gray-50 rounded-lg text-sm text-gray-800"></div>
+            </div>
+        </section>
+
+        <!-- Checklist Section -->
+        <section id="checklist" class="scroll-mt-20 space-y-8 mt-16">
+            <h2 class="text-3xl font-bold text-gray-900 border-l-4 border-teal-500 pl-4">任務清單</h2>
+            <p class="text-gray-600">這裡彙整了您提供的所有美食與購物清單。您可以將其作為旅途中的快速參考指南，並勾選已完成的項目，確保不錯過任何一個想吃想買的東西。</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="checklist-content"></div>
+        </section>
+
+    </main>
+
+    <footer class="mt-16 border-t py-8">
+        <div class="text-center text-sm text-gray-500">
+            <p>為 LI CHI SHENG 家庭客製化</p>
+            <p>&copy; 2025 互動行程規劃</p>
+        </div>
+    </footer>
+
+    <script>
+        const appData = {
+            itinerary: [
+                {
+                    day: 1,
+                    title: "抵達首爾，弘大初探與青春脈動",
+                    date: "2025/07/19 (六)",
+                    brief: "順利抵達並入住弘大，初步探索充滿活力的住宿周邊區域，感受首爾年輕、藝術的氛圍，為接下來的旅程暖身。",
+                    timeline: [
+                        { time: "16:50-18:30", icon: "🛬", title: "仁川機場抵達協議", description: "航班抵達、入境、提領行李，並在便利商店購買/儲值T-Money卡。" },
+                        { time: "18:30-20:00", icon: "🚇", title: "前往弘大住處", description: "搭乘機場快線AREX普通列車至「弘大入口站」，步行至「弘大安妮之家」辦理入住。", link: "https://map.naver.com/p/entry/place/13371694" },
+                        { time: "20:00-21:30", icon: "🍖", title: "晚餐：延南火爐", description: "品嚐美食清單上的烤肉，為旅程補充能量。", link: "https://map.naver.com/p/search/%EC%97%B0%EB%82%A8%ED%99%94%EB%A1%9C" },
+                        { time: "21:30-", icon: "🚶", title: "弘大商圈夜間漫步", description: "感受街頭藝術與活力，可順道逛逛Mplayground服飾店或Music Plant唱片行。", link: "https://map.naver.com/p/entry/place/1879717143" },
+                        { time: "閉環", icon: "🏠", title: "返回住宿", description: "本日活動量不大，步行即可返回弘大安妮之家。" }
+                    ]
+                },
+                {
+                    day: 2,
+                    title: "王室巡禮與傳統文化沉浸",
+                    date: "2025/07/20 (日)",
+                    brief: "穿上傳統韓服，穿越回朝鮮王朝的輝煌時代，深度體驗韓國的宮殿建築與傳統市集文化。",
+                    timeline: [
+                        { time: "09:00-10:00", icon: "👘", title: "韓服租借體驗", description: "從弘大入口站搭地鐵3號線至「景福宮站」(4號出口)，前往Hanboknam租借韓服。", link: "https://map.naver.com/p/entry/place/37887659" },
+                        { time: "10:00-13:00", icon: "🏛️", title: "景福宮深度探索", description: "穿著韓服免費進入景福宮，遊覽光化門、慶會樓等主要景點。", link: "https://map.naver.com/p/entry/place/11648719" },
+                        { time: "13:00-14:30", icon: "🍵", title: "傳統茶屋小憩", description: "步行至北村韓屋村，在「喝茶的院子」品嚐傳統茶點，享受寧靜時光。", link: "https://map.naver.com/p/entry/place/11672353" },
+                        { time: "14:30-17:00", icon: "🏘️", title: "北村與仁寺洞漫遊", description: "漫步北村韓屋村，隨後前往仁寺洞逛傳統工藝品店，並歸還韓服。" },
+                        { time: "17:00-19:00", icon: "🍲", title: "廣藏市場美食盛宴", description: "搭地鐵至「鐘路五街站」(7/8號出口)，品嚐綠豆煎餅與麻藥飯捲。", link: "https://map.naver.com/p/entry/place/11624474" },
+                        { time: "19:00-", icon: "🛍️", title: "重度購物：artfood伴手禮", description: "在廣藏市場的Artfood(99號攤)購買草莓乾、藥菓等伴手禮。", link: "https://map.naver.com/p/entry/place/1979929949" },
+                        { time: "閉環", icon: "🚕", title: "【策略】搭計程車返回", description: "購物後負重較大，建議搭乘計程車舒適地返回弘大住處。" }
+                    ]
+                },
+                {
+                    day: 3,
+                    title: "現代都會剪影與娛樂盛典",
+                    date: "2025/07/21 (一)",
+                    brief: "從江南的知識殿堂到明洞的購物天堂與國際級表演，全方位體驗首爾的時尚、繁華與藝術活力。",
+                    timeline: [
+                        { time: "10:00-13:00", icon: "✨", title: "江南地標巡禮", description: "搭地鐵2號線至「三成站」(6號出口連通)，參觀星空圖書館。可順便在COEX的Music Art尋找K-POP週邊。", link: "https://map.naver.com/p/entry/place/1839820063" },
+                        { time: "13:00-14:00", icon: "🍽️", title: "COEX Mall 午餐", description: "在COEX Mall內的美食街自由選擇午餐。" },
+                        { time: "14:00-17:30", icon: "💄", title: "明洞購物深度探索", description: "搭地鐵2號線至「乙支路入口站」(5/6號出口)。主攻Olive Young明洞全球旗艦店，尋找hetras香氛及清單上美妝品。", link: "https://map.naver.com/p/entry/place/37233816"},
+                        { time: "17:30-19:30", icon: "🍖", title: "晚餐 & 亂打秀前準備", description: "在明洞享用晚餐，推薦王妃家。餐後步行前往亂打秀劇場。", link: "https://map.naver.com/p/search/%EC%99%95%EB%B9%84%EC%A7%91"},
+                        { time: "20:00-21:30", icon: "🥁", title: "觀賞亂打秀 (NANTA)", description: "在明洞劇場欣賞國際知名的亂打秀，享受一場充滿節奏與歡笑的無語言隔閡表演 (需提前預訂)。", link: "https://map.naver.com/p/entry/place/13297078" },
+                        { time: "閉環", icon: "🚕", title: "【策略】搭計程車返回", description: "結束一天的行程後，搭乘計程車將疲憊的身心送回弘大住處。" }
+                    ]
+                },
+                {
+                    day: 4,
+                    title: "愛寶樂園奇幻之旅",
+                    date: "2025/07/22 (二)",
+                    brief: "全天投入韓國最大的主題樂園——愛寶樂園。這一天是專為家庭設計的「放電」日，從刺激的雲霄飛車到溫馨的動物園，應有盡有。",
+                    timeline: [
+                        { time: "08:30-10:00", icon: "🚌", title: "前往愛寶樂園", description: "建議從「江南站」(5號出口) 搭乘5002B號紅色廣域巴士，車程約40-50分鐘，直達樂園門口。", link: "https://map.naver.com/p/entry/place/1216093415" },
+                        { time: "10:00-19:00", icon: "🎢", title: "愛寶樂園全攻略", description: "強烈推薦必玩「木質過山車T-Express」與「遺失的峽谷」水陸兩用車野生動物園。下載官方APP可查看排隊時間與預約設施。", link: "https://map.naver.com/p/entry/place/11575239" },
+                        { time: "19:00-21:00", icon: "🚌", title: "返回首爾 & 晚餐", description: "搭乘5002B號巴士返回江南站。晚餐可在江南站附近解決，或返回弘大後用餐。" },
+                        { time: "閉環", icon: "🚇", title: "返回住宿", description: "從江南搭乘地鐵2號線返回弘大入口站，結束筋疲力盡但充滿回憶的一天。" }
+                    ]
+                },
+                {
+                    day: 5,
+                    title: "K-POP朝聖與首爾之巔",
+                    date: "2025/07/23 (三)",
+                    brief: "上午深度探索弘大的K-POP文化，下午登上城市之巔，將首爾的壯麗景色盡收眼底，動靜結合的完美一天。",
+                    timeline: [
+                        { time: "10:30-14:00", icon: "🃏", title: "弘大K-POP店家巡禮", description: "以弘大入口站為中心，依次探訪arch2ve、pocaboo及Music Plant，為女兒們的追星之旅畫上圓滿句號。", link: "https://map.naver.com/p/search/%ED%99%8D%EB%8C%80%20%EC%95%85%ED%95%98%EC%9E%85%EC%9C%BC" },
+                        { time: "14:00-15:00", icon: "🍽️", title: "午餐：新村食堂", description: "在弘大品嚐美食清單上的新村食堂，推薦熱炭烤肉與7分鐘豬肉泡菜鍋。", link: "https://map.naver.com/p/entry/place/11683497" },
+                        { time: "15:00-18:00", icon: "🛍️", title: "重度購物：大創明洞店", description: "搭地鐵2號線至「明洞站」(1號出口)，前往12層樓的大創百貨進行重度購物。", link: "https://map.naver.com/p/entry/place/11639739" },
+                        { time: "18:00-21:00", icon: "🗼", title: "N首爾塔夜景", description: "從「明洞站」(3號出口)步行或搭計程車至南山纜車乘車點，搭乘纜車登上N首爾塔，欣賞無敵首爾夜景。", link: "https://map.naver.com/p/entry/place/11552309" },
+                        { time: "閉環", icon: "🚕", title: "【策略】搭計程車返回", description: "結束整天的行程後，從明洞搭乘計程車將戰利品與疲憊的身心送回弘大住處。" }
+                    ]
+                },
+                {
+                    day: 6,
+                    title: "永登浦最終巡禮與順暢歸途",
+                    date: "2025/07/24 (四)",
+                    brief: "在旅程的最後一天，前往大型購物中心進行最後的採購，並嚴格按照時間規劃，執行一套流暢、無壓力的機場離境程序。",
+                    timeline: [
+                        { time: "09:00-11:00", icon: "🛅", title: "退房與行李寄放", description: "11:00前完成退房，並將行李寄放在弘大入口站的置物櫃。" },
+                        { time: "11:00-12:00", icon: "🛒", title: "永登浦最終採購", description: "搭地鐵2號線轉1號線至「永登浦站」(3號出口連通)，在時代廣場或地下街進行最後購物。", link: "https://map.naver.com/p/entry/place/12122731" },
+                        { time: "12:00-13:15", icon: "❗", title: "核心：取行李，前往機場", description: "最晚12:15必須從弘大入口站搭上AREX普通列車前往仁川機場 (ICN)。" },
+                        { time: "13:15-16:10", icon: "💰", title: "機場離境與退稅程序", description: "辦理登機、托運行李，並使用自助退稅機(Kiosk)完成退稅流程。時間非常充裕。" },
+                        { time: "16:10", icon: "🛫", title: "快樂賦歸", description: "登上KE187班機，結束愉快的首爾家庭之旅。" }
+                    ]
+                }
+            ],
+            transportation: [
+                { id: "route1", name: "弘大 → 景福宮 (~6km)", metro: 6000, taxi_min: 9000, taxi_max: 11000, rec: "地鐵。距離適中，地鐵直達且班次密集。" },
+                { id: "route2", name: "明洞 → 東大門 (~2.5km)", metro: 6000, taxi_min: 6500, taxi_max: 7500, rec: "計程車。費用差距小，可免去地鐵站內步行，實現點對點移動。" },
+                { id: "route3", name: "景福宮 → 廣藏市場 (~2.5km)", metro: 6000, taxi_min: 6500, taxi_max: 7500, rec: "計程車。特別是在結束景福宮的大量步行後，可快速抵達市場用餐。" },
+                { id: "route4", name: "明洞 → N首爾塔纜車站", metro: 6000, taxi_min: 5000, taxi_max: 6000, rec: "計程車。雖然地鐵4人費用稍高，但可免去從地鐵站上坡至纜車站的辛苦，家庭出遊尤其推薦。" }
+            ],
+            checklists: [
+                {
+                    category: "🍽️ 美食 & 餐廳",
+                    items: [
+                        { name: "延南火爐 (烤肉)", done: false },
+                        { name: "新村食堂 (烤肉)", done: false },
+                        { name: "廣藏市場 (小吃)", done: false },
+                        { name: "王妃家 (烤肉)", done: false },
+                        { name: "明洞一隻雞 (雞湯)", done: false },
+                        { name: "黃金牧場 (韓牛)", done: false },
+                        { name: "金豬食堂 (烤肉)", done: false },
+                    ]
+                },
+                {
+                    category: "💄 美妝保養",
+                    items: [
+                        { name: "hetras 香氛噴霧 (Olive Young)", done: false },
+                        { name: "ISOI 玫瑰精華", done: false },
+                        { name: "VT 微針精華", done: false },
+                        { name: "Numbuzin 數字面膜", done: false },
+                        { name: "MEDIPEEL+ 膠原蛋白", done: false },
+                        { name: "Torriden 精華/乳霜", done: false },
+                        { name: "OBgE 男士彩妝", done: false },
+                    ]
+                },
+                {
+                    category: "🛍️ 伴手禮 & 零食",
+                    items: [
+                        { name: "artfood 藥菓/草莓乾", done: false },
+                        { name: "大創 高麗紅蔘糖", done: false },
+                        { name: "Dr. You 蛋白脆片", done: false },
+                        { name: "Bibigo 海苔脆片", done: false },
+                        { name: "No Brand 巧克力玉米球", done: false },
+                        { name: "Orion 空心薯條", done: false },
+                    ]
+                },
+                {
+                    category: "🃏 K-POP 週邊",
+                    items: [
+                        { name: "arch2ve (小卡)", done: false },
+                        { name: "pocaboo (小卡)", done: false },
+                        { name: "WITHMUU (明洞)", done: false },
+                        { name: "Music Plant (弘大)", done: false },
+                        { name: "Music Art (COEX)", done: false },
+                    ]
+                },
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const itineraryContainer = document.getElementById('itinerary-content');
+            const checklistContainer = document.getElementById('checklist-content');
+            const routeSelect = document.getElementById('route-select');
+            const mobileNav = document.getElementById('mobile-nav');
+            let transportChart;
+
+            function createItinerary() {
+                itineraryContainer.innerHTML = '';
+                appData.itinerary.forEach(day => {
+                    const dayCard = document.createElement('div');
+                    dayCard.className = 'card rounded-xl overflow-hidden';
+
+                    let timelineHTML = day.timeline.map(item => createTimelineItem(item)).join('');
+
+                    dayCard.innerHTML = `
+                        <div class="p-6 bg-gray-50">
+                            <h3 class="text-2xl font-bold text-gray-800">第 ${day.day} 天: ${day.title}</h3>
+                            <p class="text-sm text-gray-500">${day.date}</p>
+                            <p class="mt-2 text-sm text-gray-600">${day.brief}</p>
+                        </div>
+                        <div class="p-6">
+                            <div class="relative">
+                                ${timelineHTML}
+                            </div>
+                        </div>
+                    `;
+                    itineraryContainer.appendChild(dayCard);
+                });
+            }
+            
+            function createTimelineItem(item) {
+                return `
+                    <div class="relative timeline-item pb-8 pl-12">
+                        <div class="absolute top-1 left-0 flex items-center justify-center w-9 h-9 rounded-full bg-white border-2 border-gray-200 z-10">
+                            <span class="text-lg">${item.icon}</span>
+                        </div>
+                        <div class="pt-1">
+                            <p class="text-sm font-semibold text-gray-500">${item.time}</p>
+                            <h4 class="font-bold mt-1 text-gray-800">${item.title}</h4>
+                            <p class="mt-1 text-sm text-gray-600">${item.description}</p>
+                            ${item.link ? `<a href="${item.link}" target="_blank" class="mt-2 inline-block text-sm text-teal-600 hover:text-teal-800">📍 在 Naver Map 開啟</a>` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            function createChecklists() {
+                checklistContainer.innerHTML = '';
+                appData.checklists.forEach(list => {
+                    const listCard = document.createElement('div');
+                    listCard.className = 'card rounded-xl p-6';
+                    const itemsHTML = list.items.map((item, index) => `
+                        <li class="flex items-center space-x-3 py-2 border-b border-gray-100 last:border-b-0">
+                            <input id="item-${list.category}-${index}" type="checkbox" ${item.done ? 'checked' : ''} class="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500">
+                            <label for="item-${list.category}-${index}" class="text-sm text-gray-700">${item.name}</label>
+                        </li>
+                    `).join('');
+
+                    listCard.innerHTML = `
+                        <h3 class="text-xl font-bold text-teal-700 mb-4">${list.category}</h3>
+                        <ul class="space-y-1">
+                            ${itemsHTML}
+                        </ul>
+                    `;
+                    checklistContainer.appendChild(listCard);
+                });
+            }
+
+            function setupTransportChart() {
+                routeSelect.innerHTML = '';
+                appData.transportation.forEach(route => {
+                    const option = document.createElement('option');
+                    option.value = route.id;
+                    option.textContent = route.name;
+                    routeSelect.appendChild(option);
+                });
+
+                if (transportChart) {
+                    transportChart.destroy();
+                }
+
+                const ctx = document.getElementById('transportChart').getContext('2d');
+                transportChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['地鐵 (4人)', '計程車 (預估)'],
+                        datasets: [
+                            {
+                                label: '費用 (韓元 ₩)',
+                                data: [],
+                                backgroundColor: [
+                                    'rgba(20, 184, 166, 0.6)',
+                                    'rgba(249, 115, 22, 0.6)'
+                                ],
+                                borderColor: [
+                                    'rgb(15, 118, 110)',
+                                    'rgb(194, 65, 12)'
+                                ],
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '₩ ' + value.toLocaleString();
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.raw && Array.isArray(context.raw)) {
+                                            label += `₩ ${context.raw[0].toLocaleString()} - ${context.raw[1].toLocaleString()}`;
+                                        } else if (context.raw !== null) {
+                                            label += `₩ ${context.raw.toLocaleString()}`;
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                routeSelect.addEventListener('change', (e) => {
+                    updateTransportChart(e.target.value);
+                });
+
+                if (appData.transportation.length > 0) {
+                    updateTransportChart(appData.transportation[0].id);
+                }
+            }
+
+            function updateTransportChart(routeId) {
+                const routeData = appData.transportation.find(r => r.id === routeId);
+                if (routeData) {
+                    transportChart.data.datasets[0].data = [
+                        routeData.metro,
+                        [routeData.taxi_min, routeData.taxi_max]
+                    ];
+                    transportChart.update();
+                    document.getElementById('transport-recommendation').innerHTML = `<p><span class="font-bold">決策建議：</span>${routeData.rec}</p>`;
+                }
+            }
+
+            function setupNavigation() {
+                const navLinks = document.querySelectorAll('.nav-link');
+                const sections = document.querySelectorAll('main section');
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            navLinks.forEach(link => {
+                                link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                            });
+                            mobileNav.value = entry.target.id;
+                        }
+                    });
+                }, { rootMargin: "-50% 0px -50% 0px" });
+
+                sections.forEach(section => observer.observe(section));
+                
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+                    });
+                });
+
+                mobileNav.addEventListener('change', (e) => {
+                    document.getElementById(e.target.value).scrollIntoView({ behavior: 'smooth'});
+                });
+            }
+
+            createItinerary();
+            createChecklists();
+            setupTransportChart();
+            setupNavigation();
+        });
+    </script>
+</body>
+</html>

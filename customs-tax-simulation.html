@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汽車關稅調降衝擊模擬器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: The application is designed as an interactive dashboard. The core interaction allows users to select a specific domestic car model ("國產守方") from a dropdown. This action dynamically filters and displays cards for all corresponding imported competitors ("進口攻方"), detailing the threat analysis and level. This "Select-and-See" model is more user-friendly and less overwhelming than static tables. It is complemented by a summary bar chart that provides a quick, high-level overview of the most threatening import brands overall. This structure transforms a static report into an exploratory tool. -->
+    <!-- Visualization & Content Choices: Report Info: Domestic vs. Import car competition. -> Goal: Compare and Explore. -> Viz/Presentation Method: An interactive dropdown to select a domestic car, which then dynamically generates competitor "cards" using HTML/CSS. This directly answers the user's primary question: "What threatens Car X?". For summary, Report Info: Overall brand threat ratings. -> Goal: Inform. -> Viz/Presentation Method: A Chart.js horizontal bar chart to visually rank the most threatening brands, providing an instant high-level takeaway. -> Library/Method: Vanilla JS for interaction, Chart.js for visualization. -> Justification: This combination provides both focused, user-driven detail and a clear, aggregated summary. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+            /* slate-50 */
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">汽車關稅調降衝擊模擬器</h1>
+            <p class="mt-2 text-md md:text-lg text-slate-600">模擬進口關稅(17.5%)調降後，台灣國產車將面臨的市場競爭變化。</p>
+        </header>
+
+        <main>
+            <section class="bg-white p-6 rounded-2xl shadow-lg border border-slate-200">
+                <h2 class="text-2xl font-bold mb-4 text-center">選擇國產車，查看潛在的進口對手</h2>
+                <div class="max-w-md mx-auto">
+                    <label for="domestic-car-selector" class="block text-sm font-medium text-slate-700 mb-1">選擇國產守方
+                        🛡️</label>
+                    <select id="domestic-car-selector"
+                        class="w-full p-3 border border-slate-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                    </select>
+                </div>
+
+                <div id="competitor-display" class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+            </section>
+
+            <section class="bg-white p-6 mt-8 rounded-2xl shadow-lg border border-slate-200">
+                <h2 class="text-2xl font-bold mb-4 text-center">總體威脅品牌分析</h2>
+                <p class="text-center text-slate-600 mb-6">綜合評估下，關稅調降後對國產車造成最大威脅的進口品牌。</p>
+                <div class="chart-container">
+                    <canvas id="threat-brand-chart"></canvas>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-12 py-4">
+            <p class="text-sm text-slate-500">此為基於市場分析的模擬數據，僅供參考。</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const competitionData = [
+                { segment: 'CUV/SUV', domestic: 'Toyota Corolla Cross', import: 'Škoda Kamiq', analysis: '歐洲品牌光環、安全配備齊全，降價後直接對決主力車型', stars: 5 },
+                { segment: 'CUV/SUV', domestic: 'Toyota Corolla Cross', import: 'VW T-Roc', analysis: '德國工藝形象、設計感強，降價後打擊頂規CC', stars: 4 },
+                { segment: 'CUV/SUV', domestic: 'Honda HR-V', import: 'Kia Stonic', analysis: '配備豐富，降價後性價比更高，擠壓生存空間', stars: 4 },
+                { segment: 'CUV/SUV', domestic: 'Nissan Kicks', import: 'Suzuki Vitara', analysis: '輕油電與四驅功能，降價後吸引特定客群', stars: 3 },
+                { segment: 'CUV/SUV', domestic: 'MG ZS', import: 'Seat Arona', analysis: '獨特歐系品牌，降價後吸引年輕首購族', stars: 3 },
+                { segment: 'SUV', domestic: 'Honda CR-V', import: 'Toyota RAV4', analysis: '「進口神車」光環，降價後價格優勢完全蓋過國產', stars: 5 },
+                { segment: 'SUV', domestic: 'Ford Kuga', import: 'Kia Sportage', analysis: '前衛設計與頂級配備，降價後成同級距「殺手級」產品', stars: 5 },
+                { segment: 'SUV', domestic: 'Hyundai Tucson L', import: 'Mazda CX-5', analysis: '日式精品內裝，降價後性價比更高，吸引家庭買家', stars: 4 },
+                { segment: 'SUV', domestic: 'Ford Kuga', import: 'Škoda Karoq', analysis: '歐洲安全形象與大空間，降價後成CR-V/Kuga勁敵', stars: 3 },
+                { segment: 'Sedan/Hatchback', domestic: 'Ford Focus', import: 'VW Golf', analysis: '歐系鋼砲標竿，降價後將吸走追求操控的核心客群', stars: 5 },
+                { segment: 'Sedan/Hatchback', domestic: 'Toyota Corolla Altis', import: 'Škoda Octavia', analysis: '超大空間與歐洲設計，降價後威脅Altis頂規油電版', stars: 4 },
+                { segment: 'Sedan/Hatchback', domestic: 'Toyota Corolla Altis', import: 'Mazda 3', analysis: '精品化內裝，降價後更具吸引力，持續侵蝕市場', stars: 4 },
+                { segment: 'Sedan/Hatchback', domestic: 'Nissan Sentra', import: 'Škoda Scala', analysis: '安全性與空間機能，降價後吸引注重實用的家庭買家', stars: 3 },
+            ];
+
+            const selector = document.getElementById('domestic-car-selector');
+            const display = document.getElementById('competitor-display');
+
+            const domesticCars = [...new Set(competitionData.map(item => item.domestic))];
+
+            domesticCars.forEach(car => {
+                const option = document.createElement('option');
+                option.value = car;
+                option.textContent = car;
+                selector.appendChild(option);
+            });
+
+            const renderCompetitors = (selectedCar) => {
+                display.innerHTML = '';
+                const competitors = competitionData.filter(item => item.domestic === selectedCar);
+
+                competitors.forEach(comp => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-slate-50 border border-slate-200 rounded-xl p-5 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 fade-in';
+
+                    const stars = '★'.repeat(comp.stars) + '☆'.repeat(5 - comp.stars);
+
+                    card.innerHTML = `
+                        <h3 class="text-xl font-bold text-slate-800">⚔️ ${comp.import}</h3>
+                        <p class="text-sm text-slate-500 mb-3">進口攻方</p>
+                        <p class="text-slate-700 min-h-[60px]">${comp.analysis}</p>
+                        <div class="mt-4 pt-4 border-t border-slate-200">
+                            <span class="font-semibold text-slate-800">威脅等級: </span>
+                            <span class="text-lg" title="${comp.stars}顆星">${stars}</span>
+                        </div>
+                    `;
+                    display.appendChild(card);
+                });
+            };
+
+            selector.addEventListener('change', (e) => {
+                renderCompetitors(e.target.value);
+            });
+
+            renderCompetitors(domesticCars[0]);
+
+            const threatBrandData = {
+                'Škoda': 5,
+                'KIA': 5,
+                'Volkswagen': 4,
+                'Mazda': 4,
+                'Toyota': 5,
+                'Suzuki': 3,
+                'Seat': 3
+            };
+
+            const brandChartCtx = document.getElementById('threat-brand-chart').getContext('2d');
+            new Chart(brandChartCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(threatBrandData),
+                    datasets: [{
+                        label: '威脅指數 (滿分5)',
+                        data: Object.values(threatBrandData),
+                        backgroundColor: [
+                            'rgba(239, 68, 68, 0.6)',
+                            'rgba(249, 115, 22, 0.6)',
+                            'rgba(245, 158, 11, 0.6)',
+                            'rgba(234, 179, 8, 0.6)',
+                            'rgba(132, 204, 22, 0.6)',
+                            'rgba(34, 197, 94, 0.6)',
+                            'rgba(16, 185, 129, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(239, 68, 68, 1)',
+                            'rgba(249, 115, 22, 1)',
+                            'rgba(245, 158, 11, 1)',
+                            'rgba(234, 179, 8, 1)',
+                            'rgba(132, 204, 22, 1)',
+                            'rgba(34, 197, 94, 1)',
+                            'rgba(16, 185, 129, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return `威脅指數: ${context.raw} / 5`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 5,
+                            grid: {
+                                color: '#e2e8f0' // slate-200
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
