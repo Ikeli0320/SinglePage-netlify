@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>終極採購指南：2025台灣品牌上掀式行李箱對決</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <!-- Chosen Palette: Professional & Vibrant (Blue, Teal, Yellow, Orange on a light gray background) -->
+    <!-- Application Structure Plan: The SPA is designed as a narrative journey. It starts with a "hook" explaining the value of top-lid luggage, introduces the "contenders" with KPI cards, then moves to data-driven comparisons (Price Bar Chart, Spec/Warranty Grid, Capacity vs. Weight Scatter Plot, User Sentiment Radar Chart). It culminates in an interactive HTML/CSS-based "Decision Flowchart" that guides the user to a personalized recommendation. This structure is more engaging and task-oriented than a linear report, helping users actively discover their best option based on visual data. -->
+    <!-- Visualization & Content Choices: 
+        - Market Landscape: Goal: Inform -> Method: KPI Cards (HTML/CSS) -> Interaction: Hover effects -> Justification: Quickly introduces brands visually.
+        - Price Comparison: Goal: Compare -> Method: Bar Chart (Chart.js) -> Interaction: Tooltips -> Justification: Best for direct comparison of a single metric (price).
+        - Feature/Warranty Showdown: Goal: Compare -> Method: Styled Cards (HTML/CSS) -> Interaction: Static -> Justification: Clearly separates and highlights key textual data like specs and unique warranty offers.
+        - Capacity vs. Weight: Goal: Relationships -> Method: Scatter Plot (Chart.js) -> Interaction: Tooltips -> Justification: Ideal for showing the relationship between two quantitative variables, visualizing "efficiency".
+        - User Sentiment: Goal: Compare (multi-dimensional) -> Method: Radar Chart (Chart.js) -> Interaction: Tooltips -> Justification: Perfect for comparing multiple entities across several qualitative criteria.
+        - Decision Guide: Goal: Organize/Guide -> Method: Flowchart (HTML/CSS) -> Interaction: Static Visual Flow -> Justification: Provides a clear, actionable decision path for the user.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        .flowchart-node {
+            border: 2px solid #007BFF;
+            background-color: #ffffff;
+            color: #343A40;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 700;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .flowchart-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .flowchart-arrow {
+            position: relative;
+            width: 2px;
+            height: 2rem;
+            background-color: #007BFF;
+            margin: 0.5rem auto;
+        }
+
+        .flowchart-arrow::after {
+            content: '▼';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #007BFF;
+            font-size: 1.25rem;
+        }
+
+        .kpi-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid;
+            transition: all 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+    </style>
+</head>
+
+<body class="text-[#343A40]">
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#007BFF] mb-4">終極採購指南</h1>
+            <h2 class="text-2xl md:text-3xl font-bold mb-6">2025台灣品牌「上掀式行李箱」CP值對決</h2>
+            <p class="max-w-4xl mx-auto text-lg text-gray-600">
+                面對日本、韓國等地的狹小飯店空間，傳統對開行李箱已成旅途痛點。上掀式設計不僅節省空間，更提升收納彈性，成為現代旅人的聰明之選。本互動應用將為您深度解析台灣市場四大熱門品牌，助您找到命定的旅行夥伴。</p>
+        </header>
+
+        <main class="space-y-16">
+            <section id="market-landscape">
+                <h3 class="text-3xl font-bold text-center mb-8">四大天王：台灣行李箱市場實力派玩家</h3>
+                <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">
+                    本節介紹本次對決的四位主角。它們分別代表了台灣行李箱產業的不同類型：從信譽卓著的製造龍頭到引領潮流的設計標竿，再到主打CP值與創新功能的網路新星。點擊或將滑鼠移至卡片上以了解更多。</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                    <div class="kpi-card border-[#007BFF]">
+                        <div class="text-6xl mb-3">🛡️</div>
+                        <h4 class="text-xl font-bold mb-2">Eminent 萬國通路</h4>
+                        <p class="text-gray-500 font-semibold">信賴務實的製造龍頭</p>
+                    </div>
+                    <div class="kpi-card border-[#4DC9C3]">
+                        <div class="text-6xl mb-3">🎨</div>
+                        <h4 class="text-xl font-bold mb-2">CROWN 皇冠</h4>
+                        <p class="text-gray-500 font-semibold">引領風潮的美學標竿</p>
+                    </div>
+                    <div class="kpi-card border-[#FFC107]">
+                        <div class="text-6xl mb-3">🏆</div>
+                        <h4 class="text-xl font-bold mb-2">AOU 微笑旅行</h4>
+                        <p class="text-gray-500 font-semibold">極致CP值的價值冠軍</p>
+                    </div>
+                    <div class="kpi-card border-[#fd7e14]">
+                        <div class="text-6xl mb-3">⚙️</div>
+                        <h4 class="text-xl font-bold mb-2">Allez Voyager 奧莉薇閣</h4>
+                        <p class="text-gray-500 font-semibold">功能滿載的網路先鋒</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="price-comparison" class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                <h3 class="text-3xl font-bold text-center mb-2">價格帶對決：誰是CP值之選？</h3>
+                <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+                    此長條圖以各品牌相似的中型尺寸（24-26吋）為基準，直觀比較其價格定位。您可以清楚看到AOU與奧莉薇閣以親民價格搶市，而Eminent與CROWN則定位於中高階市場。將滑鼠移至長條上可查看確切價格。
+                </p>
+                <div class="chart-container">
+                    <canvas id="priceChart"></canvas>
+                </div>
+            </section>
+
+            <section id="feature-showdown">
+                <h3 class="text-3xl font-bold text-center mb-8">核心規格與保固大比拼</h3>
+                <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">
+                    本區分為兩部分，左側詳列各品牌的核心規格，如箱體材質與輪組配置，讓您快速比較其硬體實力。右側則聚焦於各品牌最關鍵的保固條款，這是評估長期持有成本與品牌誠信的重要指標。</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                        <h4 class="text-2xl font-bold text-center mb-6">硬體實力檢視</h4>
+                        <div class="space-y-6">
+                            <div class="p-4 rounded-lg bg-blue-50 border border-blue-200">
+                                <h5 class="font-bold text-lg text-[#007BFF]">Eminent "Alfred"</h5>
+                                <p><strong>材質:</strong> 100% 德國Makrolon PC</p>
+                                <p><strong>輪組:</strong> 自家高效靜音飛機輪</p>
+                                <p><strong>安全:</strong> 雙層防爆拉鍊</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-teal-50 border border-teal-200">
+                                <h5 class="font-bold text-lg text-[#4DC9C3]">CROWN "BOXY"</h5>
+                                <p><strong>材質:</strong> 100% 德國拜耳 PC</p>
+                                <p><strong>輪組:</strong> 美國 SJ.TOBOL 靜音雙輪</p>
+                                <p><strong>安全:</strong> 雙齒防盜防爆拉鍊</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-yellow-50 border border-yellow-200">
+                                <h5 class="font-bold text-lg text-[#FFC107]">AOU "旅行逸遠"</h5>
+                                <p><strong>材質:</strong> PC + ABS 複合材料</p>
+                                <p><strong>輪組:</strong> 專利開發超靜音輪</p>
+                                <p><strong>安全:</strong> 前開式防爆拉鍊</p>
+                            </div>
+                            <div class="p-4 rounded-lg bg-orange-50 border border-orange-200">
+                                <h5 class="font-bold text-lg text-[#fd7e14]">Allez Voyager "掀旅箱 II"</h5>
+                                <p><strong>材質:</strong> PC + ABS 複合材料</p>
+                                <p><strong>輪組:</strong> <span class="font-black">日本 Hinomoto 煞車靜音輪</span></p>
+                                <p><strong>安全:</strong> 標準拉鍊</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                        <h4 class="text-2xl font-bold text-center mb-6">安心承諾對照</h4>
+                        <div class="flex flex-col items-center justify-center h-full space-y-8">
+                            <div
+                                class="text-center p-6 rounded-xl bg-yellow-100 border-2 border-dashed border-[#FFC107] w-full">
+                                <h5 class="text-2xl font-bold text-[#FFC107]">AOU 微笑旅行</h5>
+                                <p class="text-6xl md:text-8xl font-black my-4 text-yellow-500">3年</p>
+                                <p class="text-xl font-bold">破箱免費換新</p>
+                                <p class="text-gray-600 mt-2">包含航空公司託運損壞，提供市場頂級的售後保障。</p>
+                            </div>
+                            <div
+                                class="text-center p-6 rounded-xl bg-orange-100 border-2 border-dashed border-[#fd7e14] w-full">
+                                <h5 class="text-2xl font-bold text-[#fd7e14]">Allez Voyager</h5>
+                                <p class="text-6xl md:text-8xl font-black my-4 text-orange-500">2年</p>
+                                <p class="text-xl font-bold">無過失保固</p>
+                                <p class="text-gray-600 mt-2">提供兩年內不限原因的保固服務，同樣具備高度競爭力。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="performance-analysis" class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                <h3 class="text-3xl font-bold text-center mb-2">收納效率分析：容量 vs. 重量</h3>
+                <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+                    理想的行李箱是在最輕的重量下提供最大的收納空間。此散佈圖顯示了各品牌中型尺寸的表現，點位越靠圖表「左上方」，代表收納效率越高。將滑鼠移至各點可查看詳細數據。</p>
+                <div class="chart-container">
+                    <canvas id="capacityWeightChart"></canvas>
+                </div>
+            </section>
+
+            <section id="user-sentiment" class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                <h3 class="text-3xl font-bold text-center mb-2">網友口碑雷達圖</h3>
+                <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+                    此雷達圖綜合網路評價，將各品牌在「耐用度」、「設計感」、「CP值」、「功能性」與「保固力」五個維度的表現視覺化。圖形越向外擴展，代表該項目的口碑越強。您可以透過比較圖形形狀，快速理解各品牌的綜合實力與特色。
+                </p>
+                <div class="chart-container">
+                    <canvas id="sentimentRadarChart"></canvas>
+                </div>
+            </section>
+
+            <section id="decision-guide">
+                <h3 class="text-3xl font-bold text-center mb-8">決策流程圖：找到您的命定旅伴</h3>
+                <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">
+                    綜合以上所有分析，最後我們為您設計了這個簡單的決策流程圖。請從您的首要考量點出發，跟隨箭頭指引，即可找到最符合您旅行風格與需求的推薦品牌。</p>
+                <div class="max-w-4xl mx-auto">
+                    <div class="flowchart-node">您的旅程，從這裡開始</div>
+                    <div class="flowchart-arrow"></div>
+                    <div class="flowchart-node bg-[#007BFF] text-white">您最重視的考量點是？</div>
+                    <div class="flowchart-arrow"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 mt-4">
+                        <div class="flex flex-col items-center">
+                            <div class="flowchart-node w-full">絕對耐用 & 品牌信賴</div>
+                            <div class="flowchart-arrow"></div>
+                            <div class="flowchart-node bg-[#007BFF] text-white w-full">Eminent "Alfred"</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="flowchart-node w-full">設計美學 & 時尚外型</div>
+                            <div class="flowchart-arrow"></div>
+                            <div class="flowchart-node bg-[#4DC9C3] text-white w-full">CROWN "BOXY"</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="flowchart-node w-full">極致CP值 & 超強保固</div>
+                            <div class="flowchart-arrow"></div>
+                            <div class="flowchart-node bg-[#FFC107] text-white w-full">AOU "旅行逸遠"</div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="flowchart-node w-full">實用功能 & 創新科技</div>
+                            <div class="flowchart-arrow"></div>
+                            <div class="flowchart-node bg-[#fd7e14] text-white w-full">Allez Voyager "掀旅箱"</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-16 pt-8 border-t border-gray-300">
+            <p class="text-gray-500">此互動應用程式的內容，均提煉自《終極採購指南：2025台灣品牌「上掀式行李箱」四大天王深度評測與CP值對決》報告。</p>
+            <p class="text-xs text-gray-400 mt-2">應用程式生成時間：2025年7月1日 上午9:59</p>
+        </footer>
+    </div>
+
+    <script>
+        const vibrantPalette = {
+            blue: '#007BFF',
+            teal: '#4DC9C3',
+            yellow: '#FFC107',
+            orange: '#fd7e14',
+            darkGray: '#343A40',
+            lightGray: '#adb5bd'
+        };
+
+        function wrapLabel(str, maxWidth) {
+            if (typeof str !== 'string' || str.length <= maxWidth) {
+                return str;
+            }
+            const words = str.split(' ');
+            let lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if (currentLine.length + word.length + 1 > maxWidth) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            if (currentLine.trim()) {
+                lines.push(currentLine.trim());
+            }
+            return lines.length > 1 ? lines : str;
+        }
+
+        const tooltipTitleCallback = function (tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        };
+
+        const chartOptionsBase = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: { size: 14, family: "'Noto Sans TC', sans-serif" }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    callbacks: { title: tooltipTitleCallback },
+                    bodyFont: { size: 14, family: "'Noto Sans TC', sans-serif" },
+                    titleFont: { size: 16, family: "'Noto Sans TC', sans-serif", weight: 'bold' }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { font: { size: 12, family: "'Noto Sans TC', sans-serif" } },
+                    grid: { display: false }
+                },
+                y: {
+                    ticks: { font: { size: 12, family: "'Noto Sans TC', sans-serif" } },
+                    grid: { color: '#e9ecef' },
+                    beginAtZero: true
+                }
+            }
+        };
+
+        const brandLabels = [
+            wrapLabel('Eminent "Alfred"', 16),
+            wrapLabel('CROWN "BOXY"', 16),
+            wrapLabel('AOU "旅行逸遠"', 16),
+            wrapLabel('Allez Voyager "掀旅箱 II"', 16)
+        ];
+
+        const brandColors = [vibrantPalette.blue, vibrantPalette.teal, vibrantPalette.yellow, vibrantPalette.orange];
+
+        new Chart(document.getElementById('priceChart'), {
+            type: 'bar',
+            data: {
+                labels: brandLabels,
+                datasets: [{
+                    label: '參考價格 (NT$)',
+                    data: [9580, 8800, 4680, 4580],
+                    backgroundColor: brandColors,
+                    borderColor: brandColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...chartOptionsBase,
+                indexAxis: 'y',
+                plugins: {
+                    ...chartOptionsBase.plugins,
+                    legend: { display: false }
+                },
+                scales: {
+                    ...chartOptionsBase.scales,
+                    y: {
+                        ticks: { font: { size: 14, family: "'Noto Sans TC', sans-serif" } },
+                    }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('capacityWeightChart'), {
+            type: 'scatter',
+            data: {
+                datasets: [
+                    { label: 'Eminent', data: [{ x: 4.17, y: 85 }], backgroundColor: vibrantPalette.blue, pointRadius: 12, pointHoverRadius: 18 },
+                    { label: 'CROWN', data: [{ x: 4.2, y: 80.6 }], backgroundColor: vibrantPalette.teal, pointRadius: 12, pointHoverRadius: 18 },
+                    { label: 'AOU', data: [{ x: 4.2, y: 89 }], backgroundColor: vibrantPalette.yellow, pointRadius: 12, pointHoverRadius: 18 },
+                    { label: 'Allez Voyager', data: [{ x: 4.3, y: 66 }], backgroundColor: vibrantPalette.orange, pointRadius: 12, pointHoverRadius: 18 }
+                ]
+            },
+            options: {
+                ...chartOptionsBase,
+                plugins: {
+                    ...chartOptionsBase.plugins,
+                    tooltip: {
+                        ...chartOptionsBase.plugins.tooltip,
+                        callbacks: {
+                            title: (tooltipItems) => tooltipItems[0].dataset.label,
+                            label: (context) => `重量: ${context.parsed.x} kg, 容量: ${context.parsed.y} L`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ...chartOptionsBase.scales.x,
+                        title: { display: true, text: '重量 (kg)', font: { weight: 'bold', size: 14 } },
+                        min: 4.0
+                    },
+                    y: {
+                        ...chartOptionsBase.scales.y,
+                        title: { display: true, text: '最大容量 (L)', font: { weight: 'bold', size: 14 } },
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('sentimentRadarChart'), {
+            type: 'radar',
+            data: {
+                labels: ['耐用度', '設計感', 'CP值', '功能性', '保固力'],
+                datasets: [
+                    { label: 'Eminent', data: [5, 3, 3, 4, 3], fill: true, backgroundColor: 'rgba(0, 123, 255, 0.2)', borderColor: vibrantPalette.blue, pointBackgroundColor: vibrantPalette.blue },
+                    { label: 'CROWN', data: [4, 5, 3, 3, 3], fill: true, backgroundColor: 'rgba(77, 201, 195, 0.2)', borderColor: vibrantPalette.teal, pointBackgroundColor: vibrantPalette.teal },
+                    { label: 'AOU', data: [3, 4, 5, 4, 5], fill: true, backgroundColor: 'rgba(255, 193, 7, 0.2)', borderColor: vibrantPalette.yellow, pointBackgroundColor: vibrantPalette.yellow },
+                    { label: 'Allez Voyager', data: [3, 3, 4, 5, 4], fill: true, backgroundColor: 'rgba(253, 126, 20, 0.2)', borderColor: vibrantPalette.orange, pointBackgroundColor: vibrantPalette.orange }
+                ]
+            },
+            options: {
+                ...chartOptionsBase,
+                scales: {
+                    r: {
+                        angleLines: { color: '#e9ecef' },
+                        grid: { color: '#e9ecef' },
+                        pointLabels: { font: { size: 14, weight: 'bold' } },
+                        ticks: { backdropColor: '#f8f9fa', color: vibrantPalette.darkGray, stepSize: 1 },
+                        suggestedMin: 0,
+                        suggestedMax: 5
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
