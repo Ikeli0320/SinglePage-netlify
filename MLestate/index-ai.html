@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美樂AI不動產 - 智慧感知型房地產平台</title>
+    <link rel="stylesheet" href="style-ai.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 導航列 -->
+    <header class="ai-header">
+        <nav class="ai-navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <i class="fas fa-robot"></i>
+                    <span>美樂AI不動產</span>
+                </div>
+                <div class="nav-actions">
+                    <button class="ai-mode-toggle" id="aiModeToggle">
+                        <i class="fas fa-magic"></i>
+                        <span>AI模式</span>
+                    </button>
+                    <button class="voice-assistant" id="voiceAssistant">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="ai-main">
+        <!-- 對話核心區域 -->
+        <section class="conversation-core">
+            <div class="container">
+                <div class="ai-welcome">
+                    <div class="ai-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="ai-message">
+                        <h2>您好！我是您的AI房地產顧問</h2>
+                        <p>請告訴我您今天想找什麼樣的房子？我可以幫您分析市場趨勢、推薦合適物件，並提供專業建議。</p>
+                    </div>
+                </div>
+
+                <div class="conversation-input">
+                    <div class="input-container">
+                        <div class="voice-button" id="voiceButton">
+                            <i class="fas fa-microphone"></i>
+                            <div class="voice-animation"></div>
+                        </div>
+                        <input type="text" class="ai-text-input" placeholder="例如：幫我找信義區有健身房和游泳池的兩房公寓，月租五萬以下..."
+                            id="conversationInput">
+                        <button class="send-button" id="sendButton">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="quick-suggestions">
+                        <button class="suggestion-chip" data-suggestion="我想要一個安靜、適合家庭、學區好的三房住宅">安靜家庭住宅</button>
+                        <button class="suggestion-chip" data-suggestion="幫我分析信義區的投資潛力">投資分析</button>
+                        <button class="suggestion-chip" data-suggestion="比較內湖和南港的房價趨勢">區域比較</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 動態洞察模組 -->
+        <section class="dynamic-insights">
+            <div class="container">
+                <h3 class="section-title">個人化市場洞察</h3>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-header">
+                            <div class="insight-icon market-trend">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="insight-title">台北市房價趨勢</div>
+                        </div>
+                        <div class="insight-value">+5.2%</div>
+                        <div class="insight-trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>較去年同期</span>
+                        </div>
+                        <div class="insight-description">信義區、大安區漲幅領先，平均漲幅達8.3%</div>
+                    </div>
+
+                    <div class="insight-card">
+                        <div class="insight-header">
+                            <div class="insight-icon investment">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div class="insight-title">投資收益率</div>
+                        </div>
+                        <div class="insight-value">3.8%</div>
+                        <div class="insight-trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>平均年化</span>
+                        </div>
+                        <div class="insight-description">內湖科技園區周邊租金收益率最高，達4.2%</div>
+                    </div>
+
+                    <div class="insight-card">
+                        <div class="insight-header">
+                            <div class="insight-icon market-activity">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="insight-title">市場活躍度</div>
+                        </div>
+                        <div class="insight-value">高</div>
+                        <div class="insight-trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>成交量增加</span>
+                        </div>
+                        <div class="insight-description">本月成交量較上月增長15%，買氣回溫</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 策展式房源流 -->
+        <section class="curated-properties">
+            <div class="container">
+                <h3 class="section-title">為您推薦的物件</h3>
+                <div class="properties-grid">
+                    <div class="property-card">
+                        <div class="property-image">
+                            <img src="https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=400"
+                                alt="信義區現代宅">
+                            <div class="property-tag">AI推薦</div>
+                        </div>
+                        <div class="ai-recommendation">
+                            🤖 因為您偏好安靜環境且需要在家工作，推薦此物件
+                        </div>
+                        <div class="property-info">
+                            <h4>信義區 現代風設計宅</h4>
+                            <p class="property-location">台北市信義區松仁路</p>
+                            <p class="property-details">2房2廳1衛 | 35.8坪 | 7F/12F</p>
+                            <div class="property-price">2,180萬</div>
+                            <div class="property-tags">
+                                <span class="tag">安靜社區</span>
+                                <span class="tag">景觀優</span>
+                                <span class="tag">近捷運</span>
+                            </div>
+                            <button class="view-details">查看詳情</button>
+                        </div>
+                    </div>
+
+                    <div class="property-card">
+                        <div class="property-image">
+                            <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=400"
+                                alt="內湖科技宅">
+                            <div class="property-tag">熱門</div>
+                        </div>
+                        <div class="ai-recommendation">
+                            🤖 符合您的預算範圍，且鄰近科技園區，投資潛力佳
+                        </div>
+                        <div class="property-info">
+                            <h4>內湖區 科技園區宅</h4>
+                            <p class="property-location">台北市內湖區星雲街</p>
+                            <p class="property-details">3房2廳2衛 | 45.5坪 | 15F/25F</p>
+                            <div class="property-price">3,580萬</div>
+                            <div class="property-tags">
+                                <span class="tag">科技園區</span>
+                                <span class="tag">學區優</span>
+                                <span class="tag">交通便利</span>
+                            </div>
+                            <button class="view-details">查看詳情</button>
+                        </div>
+                    </div>
+
+                    <div class="property-card">
+                        <div class="property-image">
+                            <img src="https://images.pexels.com/photos/2251247/pexels-photo-2251247.jpeg?auto=compress&cs=tinysrgb&w=400"
+                                alt="大直豪宅">
+                            <div class="property-tag">稀有</div>
+                        </div>
+                        <div class="ai-recommendation">
+                            🤖 基於您對品質的要求，推薦此高級住宅區物件
+                        </div>
+                        <div class="property-info">
+                            <h4>大直區 景觀豪宅</h4>
+                            <p class="property-location">台北市中山區大直街</p>
+                            <p class="property-details">4房3廳3衛 | 68.5坪 | 20F/25F</p>
+                            <div class="property-price">5,900萬</div>
+                            <div class="property-tags">
+                                <span class="tag">豪宅區</span>
+                                <span class="tag">河景</span>
+                                <span class="tag">管理完善</span>
+                            </div>
+                            <button class="view-details">查看詳情</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI分析模組 -->
+        <section class="ai-analysis">
+            <div class="container">
+                <h3 class="section-title">AI智慧分析</h3>
+                <div class="analysis-grid">
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-chart-pie"></i>
+                            <h4>市場分析</h4>
+                        </div>
+                        <div class="analysis-content">
+                            <p>根據最新數據分析，台北市房價呈現穩健上漲趨勢，其中信義區、大安區表現最為亮眼。</p>
+                            <div class="confidence-indicator">
+                                <span>AI信心度：</span>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" style="width: 85%"></div>
+                                </div>
+                                <span>85%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <h4>投資建議</h4>
+                        </div>
+                        <div class="analysis-content">
+                            <p>建議關注內湖科技園區周邊物件，租金收益率穩定，且未來增值潛力大。</p>
+                            <div class="confidence-indicator">
+                                <span>AI信心度：</span>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" style="width: 78%"></div>
+                                </div>
+                                <span>78%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- AI對話浮動按鈕 -->
+    <div class="ai-fab" id="aiFab">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <!-- AI對話模態框 -->
+    <div class="ai-modal" id="aiModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>AI房地產顧問</h3>
+                <button class="close-button" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai-message">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <p>您好！我是您的AI房地產顧問。請問有什麼可以幫助您的嗎？</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" placeholder="輸入您的問題..." id="chatInput">
+                    <button class="send-chat" id="sendChat">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script-ai.js"></script>
+</body>
+
+</html>
