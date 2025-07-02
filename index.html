@@ -24,8 +24,8 @@
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
 
         .project-card {
@@ -36,7 +36,7 @@
 
         .project-card:hover {
             transform: scale(1.02);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         .tech-badge {
@@ -44,141 +44,178 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
+
+        .compact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .mini-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .mini-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 
 <body class="antialiased">
-    <div class="container mx-auto px-4 py-8">
+    <div class="container mx-auto px-4 py-6">
         <!-- Header -->
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-5xl font-bold text-white mb-3">
                 Single Page 專案集
             </h1>
-            <p class="text-xl text-white/90 max-w-3xl mx-auto">
-                這是一個用來存放 Google Gemini Deep Research 後再使用 Canvas 產生出來的 Single Page 專案集合。每個頁面都專注於探索各種有趣議題，提供深入的分析和互動式體驗。
+            <p class="text-lg text-white/90 max-w-2xl mx-auto">
+                基於 Google Gemini 深度研究 + Canvas 技術的單頁專案集合
             </p>
         </header>
 
-        <!-- Features -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-white text-center mb-8">🎯 專案特色</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="card rounded-xl p-6 text-center">
-                    <div class="text-4xl mb-4">🔍</div>
-                    <h3 class="text-lg font-bold mb-2">深度研究</h3>
-                    <p class="text-gray-600">基於 Google Gemini 的深度研究結果</p>
+        <!-- Quick Stats -->
+        <section class="mb-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="card rounded-lg p-4 text-center">
+                    <div class="text-2xl font-bold text-purple-600">7</div>
+                    <div class="text-sm text-gray-600">總專案數</div>
                 </div>
-                <div class="card rounded-xl p-6 text-center">
-                    <div class="text-4xl mb-4">🎨</div>
-                    <h3 class="text-lg font-bold mb-2">互動體驗</h3>
-                    <p class="text-gray-600">使用 Canvas 技術打造豐富的視覺化內容</p>
+                <div class="card rounded-lg p-4 text-center">
+                    <div class="text-2xl font-bold text-blue-600">5</div>
+                    <div class="text-sm text-gray-600">技術棧</div>
                 </div>
-                <div class="card rounded-xl p-6 text-center">
-                    <div class="text-4xl mb-4">📱</div>
-                    <h3 class="text-lg font-bold mb-2">單頁應用</h3>
-                    <p class="text-gray-600">每個議題都是獨立的單頁應用程式</p>
+                <div class="card rounded-lg p-4 text-center">
+                    <div class="text-2xl font-bold text-green-600">🇹🇼</div>
+                    <div class="text-sm text-gray-600">繁體中文</div>
                 </div>
-                <div class="card rounded-xl p-6 text-center">
-                    <div class="text-4xl mb-4">📐</div>
-                    <h3 class="text-lg font-bold mb-2">響應式設計</h3>
-                    <p class="text-gray-600">支援各種裝置和螢幕尺寸</p>
+                <div class="card rounded-lg p-4 text-center">
+                    <div class="text-2xl font-bold text-orange-600">✅</div>
+                    <div class="text-sm text-gray-600">已部署</div>
                 </div>
             </div>
         </section>
 
-        <!-- Projects -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-white text-center mb-8">📁 專案內容</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Project 1 -->
-                <div class="project-card rounded-xl p-8">
-                    <div class="flex items-center mb-4">
-                        <span class="text-3xl mr-3">🇰🇷</span>
-                        <h3 class="text-2xl font-bold">首爾家庭探索之旅</h3>
+        <!-- Main Projects -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold text-white text-center mb-6">📁 主要專案</h2>
+            <div class="compact-grid">
+                <!-- Korea Travel -->
+                <div class="project-card rounded-lg p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="text-2xl mr-2">🇰🇷</span>
+                        <h3 class="text-xl font-bold">首爾家庭探索之旅</h3>
                     </div>
-                    <p class="text-white/90 mb-6">一個完整的首爾旅遊規劃工具，提供6天詳細行程規劃、交通成本比較分析、美食與購物清單，以及互動式任務管理。</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center">
-                            <span class="mr-2">📅</span>
-                            <span>6天詳細行程規劃</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="mr-2">🚇</span>
-                            <span>交通成本比較分析</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="mr-2">🍽️</span>
-                            <span>美食與購物清單</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="mr-2">🎯</span>
-                            <span>互動式任務管理</span>
-                        </div>
-                    </div>
+                    <p class="text-white/90 mb-4 text-sm">6天詳細行程規劃、交通成本比較、美食購物清單</p>
                     <a href="koreatravel.html"
-                        class="inline-block bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        class="inline-block bg-white text-purple-600 px-4 py-2 rounded font-semibold hover:bg-gray-100 transition-colors text-sm">
                         查看專案 →
                     </a>
                 </div>
 
-                <!-- Project 2 -->
-                <div class="project-card rounded-xl p-8">
-                    <div class="flex items-center mb-4">
-                        <span class="text-3xl mr-3">🚗</span>
-                        <h3 class="text-2xl font-bold">汽車關稅調降衝擊模擬器</h3>
+                <!-- Customs Tax -->
+                <div class="project-card rounded-lg p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="text-2xl mr-2">🚗</span>
+                        <h3 class="text-xl font-bold">汽車關稅調降衝擊模擬器</h3>
                     </div>
-                    <p class="text-white/90 mb-6">分析進口關稅調降對台灣汽車市場的影響，提供國產車vs進口車競爭分析、威脅等級評估、品牌影響力排名，以及市場衝擊預測。</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center">
-                            <span class="mr-2">🚗</span>
-                            <span>國產車 vs 進口車競爭分析</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="mr-2">📊</span>
-                            <span>威脅等級評估</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="mr-2">🎯</span>
-                            <span>品牌影響力排名</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="mr-2">💡</span>
-                            <span>市場衝擊預測</span>
-                        </div>
-                    </div>
+                    <p class="text-white/90 mb-4 text-sm">國產車vs進口車競爭分析、威脅等級評估、市場衝擊預測</p>
                     <a href="customs-tax-simulation.html"
-                        class="inline-block bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        class="inline-block bg-white text-purple-600 px-4 py-2 rounded font-semibold hover:bg-gray-100 transition-colors text-sm">
                         查看專案 →
                     </a>
                 </div>
 
-                <!-- Project 3 -->
-                <div class="project-card rounded-xl p-8">
-                    <div class="flex items-center mb-4">
-                        <span class="text-3xl mr-3">🧳</span>
-                        <h3 class="text-2xl font-bold">2025台灣品牌上掀式行李箱對決</h3>
+                <!-- Luggage -->
+                <div class="project-card rounded-lg p-6">
+                    <div class="flex items-center mb-3">
+                        <span class="text-2xl mr-2">🧳</span>
+                        <h3 class="text-xl font-bold">2025行李箱對決</h3>
                     </div>
-                    <p class="text-white/90 mb-6">深度評測台灣四大行李箱品牌的CP值對決，提供價格比較、容量重量分析、網友口碑雷達圖，以及互動式決策流程圖。</p>
-                    <div class="space-y-2 mb-6">
-                        <div class="flex items-center">
-                            <span class="mr-2">🛡️</span>
-                            <span>四大品牌實力分析</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="mr-2">💰</span>
-                            <span>價格帶比較與CP值評估</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="mr-2">📊</span>
-                            <span>容量重量效率分析</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="mr-2">🎯</span>
-                            <span>網友口碑雷達圖</span>
-                        </div>
-                    </div>
+                    <p class="text-white/90 mb-4 text-sm">四大品牌CP值對決、價格比較、口碑雷達圖</p>
                     <a href="2025_Top-Lid_Luggage.html"
-                        class="inline-block bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        class="inline-block bg-white text-purple-600 px-4 py-2 rounded font-semibold hover:bg-gray-100 transition-colors text-sm">
+                        查看專案 →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estate Projects -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold text-white text-center mb-6">🏠 房地產專案</h2>
+            <div class="compact-grid">
+                <!-- 美樂不動產 -->
+                <div class="mini-card">
+                    <div class="flex items-center mb-3">
+                        <span class="text-2xl mr-2">🏘️</span>
+                        <h3 class="text-lg font-bold">美樂不動產</h3>
+                    </div>
+                    <p class="text-gray-600 mb-3 text-sm">專業房地產服務平台，提供房源列表和基本篩選功能</p>
+                    <div class="flex gap-2 mb-3">
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">HTML</span>
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">CSS</span>
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">JS</span>
+                    </div>
+                    <a href="estate/index.html"
+                        class="inline-block bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                        查看專案 →
+                    </a>
+                </div>
+
+                <!-- 美樂智能不動產 -->
+                <div class="mini-card">
+                    <div class="flex items-center mb-3">
+                        <span class="text-2xl mr-2">🤖</span>
+                        <h3 class="text-lg font-bold">美樂智能不動產</h3>
+                    </div>
+                    <p class="text-gray-600 mb-3 text-sm">整合 AI 功能的房地產平台，提供智慧推薦和預測分析</p>
+                    <div class="flex gap-2 mb-3">
+                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">AI</span>
+                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">ML</span>
+                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">預測</span>
+                    </div>
+                    <a href="estate_ai/index.html"
+                        class="inline-block bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700 transition-colors">
+                        查看專案 →
+                    </a>
+                </div>
+
+                <!-- 美樂宜居探索平台 -->
+                <div class="mini-card">
+                    <div class="flex items-center mb-3">
+                        <span class="text-2xl mr-2">📊</span>
+                        <h3 class="text-lg font-bold">美樂宜居探索平台</h3>
+                    </div>
+                    <p class="text-gray-600 mb-3 text-sm">基於情感和生活方式探索的房地產平台，提供視覺化資料分析</p>
+                    <div class="flex gap-2 mb-3">
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">情感</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">生活</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">探索</span>
+                    </div>
+                    <a href="estate_vb/index.html"
+                        class="inline-block bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700 transition-colors">
+                        查看專案 →
+                    </a>
+                </div>
+
+                <!-- 美樂地產 -->
+                <div class="mini-card">
+                    <div class="flex items-center mb-3">
+                        <span class="text-2xl mr-2">🗺️</span>
+                        <h3 class="text-lg font-bold">美樂地產</h3>
+                    </div>
+                    <p class="text-gray-600 mb-3 text-sm">地理故事導向的房地產平台，OpenStreetMap 整合</p>
+                    <div class="flex gap-2 mb-3">
+                        <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">地圖</span>
+                        <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">故事</span>
+                        <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">探索</span>
+                    </div>
+                    <a href="estate_tn/index.html"
+                        class="inline-block bg-orange-600 text-white px-3 py-1 rounded text-sm hover:bg-orange-700 transition-colors">
                         查看專案 →
                     </a>
                 </div>
@@ -186,106 +223,79 @@
         </section>
 
         <!-- Tech Stack -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-white text-center mb-8">🛠️ 技術架構</h2>
-            <div class="card rounded-xl p-8">
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold text-white text-center mb-6">🛠️ 技術架構</h2>
+            <div class="card rounded-lg p-6">
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                    <div class="tech-badge rounded-lg p-4 text-center">
-                        <div class="text-2xl mb-2">🌐</div>
-                        <div class="font-semibold">HTML5</div>
+                    <div class="tech-badge rounded-lg p-3 text-center">
+                        <div class="text-xl mb-1">🌐</div>
+                        <div class="font-semibold text-sm">HTML5</div>
                     </div>
-                    <div class="tech-badge rounded-lg p-4 text-center">
-                        <div class="text-2xl mb-2">🎨</div>
-                        <div class="font-semibold">CSS3</div>
+                    <div class="tech-badge rounded-lg p-3 text-center">
+                        <div class="text-xl mb-1">🎨</div>
+                        <div class="font-semibold text-sm">CSS3</div>
                     </div>
-                    <div class="tech-badge rounded-lg p-4 text-center">
-                        <div class="text-2xl mb-2">⚡</div>
-                        <div class="font-semibold">JavaScript</div>
+                    <div class="tech-badge rounded-lg p-3 text-center">
+                        <div class="text-xl mb-1">⚡</div>
+                        <div class="font-semibold text-sm">JavaScript</div>
                     </div>
-                    <div class="tech-badge rounded-lg p-4 text-center">
-                        <div class="text-2xl mb-2">🎯</div>
-                        <div class="font-semibold">Tailwind CSS</div>
+                    <div class="tech-badge rounded-lg p-3 text-center">
+                        <div class="text-xl mb-1">🎯</div>
+                        <div class="font-semibold text-sm">Tailwind</div>
                     </div>
-                    <div class="tech-badge rounded-lg p-4 text-center">
-                        <div class="text-2xl mb-2">📊</div>
-                        <div class="font-semibold">Chart.js</div>
+                    <div class="tech-badge rounded-lg p-3 text-center">
+                        <div class="text-xl mb-1">📊</div>
+                        <div class="font-semibold text-sm">Chart.js</div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Quick Start -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-white text-center mb-8">🚀 快速開始</h2>
-            <div class="card rounded-xl p-8">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold text-white text-center mb-6">🚀 快速開始</h2>
+            <div class="card rounded-lg p-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                     <div class="text-center">
-                        <div class="text-4xl mb-4">1️⃣</div>
-                        <h3 class="text-lg font-bold mb-2">克隆專案</h3>
-                        <p class="text-gray-600">將專案複製到本地環境</p>
+                        <div class="text-2xl mb-2">1️⃣</div>
+                        <h3 class="text-base font-bold mb-1">啟動伺服器</h3>
+                        <p class="text-gray-600 text-sm">使用提供的 shell script</p>
                     </div>
                     <div class="text-center">
-                        <div class="text-4xl mb-4">2️⃣</div>
-                        <h3 class="text-lg font-bold mb-2">啟動伺服器</h3>
-                        <p class="text-gray-600">使用 HTTP 伺服器開啟專案</p>
+                        <div class="text-2xl mb-2">2️⃣</div>
+                        <h3 class="text-base font-bold mb-1">選擇專案</h3>
+                        <p class="text-gray-600 text-sm">點擊上方專案連結</p>
                     </div>
                     <div class="text-center">
-                        <div class="text-4xl mb-4">3️⃣</div>
-                        <h3 class="text-lg font-bold mb-2">開始探索</h3>
-                        <p class="text-gray-600">在瀏覽器中查看專案內容</p>
+                        <div class="text-2xl mb-2">3️⃣</div>
+                        <h3 class="text-base font-bold mb-1">開始探索</h3>
+                        <p class="text-gray-600 text-sm">體驗互動功能</p>
                     </div>
                 </div>
 
-                <div class="mt-8 p-6 bg-gray-50 rounded-lg">
-                    <h4 class="font-bold mb-4">本地開發伺服器指令：</h4>
-                    <div class="space-y-2 text-sm">
-                        <div class="bg-gray-100 p-3 rounded">
-                            <span class="font-mono">python -m http.server 8000</span>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h4 class="font-bold mb-2 text-sm">本地開發指令：</h4>
+                    <div class="space-y-1 text-xs">
+                        <div class="bg-gray-100 p-2 rounded">
+                            <span class="font-mono">./start-http-server.sh</span>
                         </div>
-                        <div class="bg-gray-100 p-3 rounded">
-                            <span class="font-mono">npx serve .</span>
-                        </div>
-                        <div class="bg-gray-100 p-3 rounded">
-                            <span class="font-mono">php -S localhost:8000</span>
+                        <div class="bg-gray-100 p-2 rounded">
+                            <span class="font-mono">python3 -m http.server 8000</span>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Stats -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-white text-center mb-8">📊 專案統計</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="card rounded-xl p-6 text-center">
-                    <div class="text-3xl font-bold text-purple-600 mb-2">3</div>
-                    <div class="text-gray-600">總專案數</div>
-                </div>
-                <div class="card rounded-xl p-6 text-center">
-                    <div class="text-3xl font-bold text-purple-600 mb-2">5</div>
-                    <div class="text-gray-600">技術棧</div>
-                </div>
-                <div class="card rounded-xl p-6 text-center">
-                    <div class="text-3xl font-bold text-purple-600 mb-2">🇹🇼</div>
-                    <div class="text-gray-600">繁體中文</div>
-                </div>
-                <div class="card rounded-xl p-6 text-center">
-                    <div class="text-3xl font-bold text-green-600 mb-2">✅</div>
-                    <div class="text-gray-600">已部署</div>
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
         <footer class="text-center">
-            <div class="card rounded-xl p-8">
-                <h3 class="text-2xl font-bold mb-4">🤝 貢獻</h3>
-                <p class="text-gray-600 mb-4">
-                    歡迎提出建議和改進意見！每個專案都是基於深度研究結果，旨在提供有價值的資訊和互動體驗。
+            <div class="card rounded-lg p-6">
+                <h3 class="text-xl font-bold mb-2">🤝 專案資訊</h3>
+                <p class="text-gray-600 mb-3 text-sm">
+                    基於 Google Gemini 深度研究 + Canvas 技術，提供有價值的資訊和互動體驗
                 </p>
-                <div class="text-sm text-gray-500">
-                    <p>最後更新: 2025年1月</p>
-                    <p>部署平台: Netlify</p>
+                <div class="text-xs text-gray-500">
+                    <p>最後更新: 2025年7月 | 部署平台: Netlify</p>
                 </div>
             </div>
         </footer>

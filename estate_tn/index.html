@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美樂地產 - 地理故事導向的房地產平台</title>
+
+    <!-- OpenStreetMap Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- 載入畫面 -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-map-marked-alt"></i>
+                <h1>美樂地產</h1>
+            </div>
+            <p>正在載入地理故事...</p>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- 主要應用容器 -->
+    <div id="app" class="app-container">
+        <!-- 地圖容器 -->
+        <div id="map-container" class="map-container"></div>
+
+        <!-- 頂部導航欄 -->
+        <header class="top-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>美樂地產</span>
+                </div>
+
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="探索城市故事..." id="search-input" />
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <button class="btn-icon" id="help-btn" title="使用說明">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                    <button class="btn-icon" id="settings-btn" title="設定">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- 圖層切換器 -->
+        <div class="layer-toggle">
+            <div class="layer-buttons">
+                <button class="layer-btn active" data-layer="historical" title="歷史圖層">
+                    <i class="fas fa-landmark"></i>
+                    <span>歷史</span>
+                </button>
+                <button class="layer-btn" data-layer="lifestyle" title="生活圖層">
+                    <i class="fas fa-coffee"></i>
+                    <span>生活</span>
+                </button>
+                <button class="layer-btn" data-layer="utility" title="機能圖層">
+                    <i class="fas fa-hospital"></i>
+                    <span>機能</span>
+                </button>
+                <button class="layer-btn" data-layer="future" title="未來圖層">
+                    <i class="fas fa-rocket"></i>
+                    <span>未來</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 地圖控制項 -->
+        <div class="map-controls">
+            <button class="control-btn" id="zoom-in" title="放大">
+                <i class="fas fa-plus"></i>
+            </button>
+            <button class="control-btn" id="zoom-out" title="縮小">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button class="control-btn" id="locate-me" title="定位我的位置">
+                <i class="fas fa-crosshairs"></i>
+            </button>
+        </div>
+
+        <!-- 故事面板 -->
+        <div class="story-panel" id="story-panel">
+            <div class="story-header">
+                <h3 id="story-title">台北市歷史故事</h3>
+                <button class="close-btn" id="close-story">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="story-content">
+                <div class="timeline-slider">
+                    <label>時間軸</label>
+                    <input type="range" id="timeline" min="1900" max="2030" value="2024" />
+                    <div class="timeline-labels">
+                        <span>1900</span>
+                        <span>1950</span>
+                        <span>2000</span>
+                        <span>2030</span>
+                    </div>
+                </div>
+
+                <div class="narrative-content" id="narrative-content">
+                    <p>選擇地圖上的標記來探索該地點的故事...</p>
+                </div>
+
+                <div class="related-places">
+                    <h4>相關地點</h4>
+                    <div class="places-list" id="places-list">
+                        <!-- 動態生成相關地點 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 房源發現面板 -->
+        <div class="property-panel" id="property-panel">
+            <div class="property-header">
+                <h3>發現的房源</h3>
+                <button class="close-btn" id="close-property">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="property-content" id="property-content">
+                <!-- 動態生成房源卡片 -->
+            </div>
+        </div>
+
+        <!-- 底部資訊欄 -->
+        <footer class="bottom-info">
+            <div class="info-content">
+                <span class="location-info" id="location-info">台北市</span>
+                <span class="map-attribution">© OpenStreetMap contributors</span>
+                <span class="coordinates" id="coordinates">25.0330, 121.5654</span>
+            </div>
+        </footer>
+
+        <!-- 湧現式房源彈窗 -->
+        <div class="property-popup" id="property-popup">
+            <!-- 動態生成房源彈窗內容 -->
+        </div>
+    </div>
+
+    <!-- 使用說明模態框 -->
+    <div class="modal" id="help-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>如何使用 美樂地產</h3>
+                <button class="close-btn" id="close-help">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="help-section">
+                    <h4><i class="fas fa-map-marked-alt"></i> 地圖探索</h4>
+                    <p>點擊地圖上的標記來探索該地點的故事。使用滑鼠滾輪或控制按鈕來縮放地圖。</p>
+                </div>
+                <div class="help-section">
+                    <h4><i class="fas fa-layer-group"></i> 圖層切換</h4>
+                    <p>使用左側的圖層按鈕來切換不同的故事視角：歷史、生活、機能、未來。</p>
+                </div>
+                <div class="help-section">
+                    <h4><i class="fas fa-home"></i> 房源發現</h4>
+                    <p>在探索過程中，相關的房源會自然湧現。點擊房源標記查看詳細資訊。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

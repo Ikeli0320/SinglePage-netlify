@@ -1,0 +1,841 @@
+/* Terra Narrativa - 地理故事導向房地產平台樣式 */
+
+/* CSS 變數定義 */
+:root {
+    /* 主要色彩 */
+    --primary-earth: #8B4513;
+    --primary-sky: #87CEEB;
+    --primary-forest: #228B22;
+
+    /* 圖層色彩 */
+    --layer-historical: #D2691E;
+    --layer-lifestyle: #FF69B4;
+    --layer-utility: #4169E1;
+    --layer-future: #9370DB;
+
+    /* 中性色彩 */
+    --neutral-white: #FFFFFF;
+    --neutral-light: #F5F5F5;
+    --neutral-medium: #CCCCCC;
+    --neutral-dark: #333333;
+
+    /* 語義色彩 */
+    --success: #4CAF50;
+    --warning: #FF9800;
+    --error: #F44336;
+    --info: #2196F3;
+
+    /* 間距 */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+
+    /* 陰影 */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+    /* 圓角 */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+
+    /* 過渡 */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* 基礎重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--neutral-dark);
+    overflow: hidden;
+}
+
+/* 載入畫面 */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-sky), var(--primary-earth));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity var(--transition-slow);
+}
+
+.loading-content {
+    text-align: center;
+    color: white;
+}
+
+.loading-logo {
+    margin-bottom: var(--space-6);
+}
+
+.loading-logo i {
+    font-size: 4rem;
+    margin-bottom: var(--space-4);
+    display: block;
+}
+
+.loading-logo h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: var(--space-4);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* 主要應用容器 */
+.app-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 地圖容器 */
+.map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* 頂部導航欄 */
+.top-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: var(--space-4);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-earth);
+}
+
+.logo i {
+    font-size: 2rem;
+}
+
+.search-container {
+    flex: 1;
+    max-width: 500px;
+    margin: 0 var(--space-8);
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-box i {
+    position: absolute;
+    left: var(--space-4);
+    color: var(--neutral-medium);
+    z-index: 2;
+}
+
+.search-box input {
+    width: 100%;
+    padding: var(--space-3) var(--space-4) var(--space-3) 3rem;
+    border: 2px solid var(--neutral-medium);
+    border-radius: var(--radius-lg);
+    font-size: 1rem;
+    background: white;
+    transition: border-color var(--transition-fast);
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--primary-earth);
+}
+
+.header-actions {
+    display: flex;
+    gap: var(--space-3);
+}
+
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--neutral-dark);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-icon:hover {
+    background: var(--neutral-light);
+    color: var(--primary-earth);
+}
+
+/* 圖層切換器 */
+.layer-toggle {
+    position: absolute;
+    top: 100px;
+    left: var(--space-6);
+    z-index: 100;
+}
+
+.layer-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
+    padding: var(--space-4);
+    box-shadow: var(--shadow-lg);
+}
+
+.layer-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border: none;
+    border-radius: var(--radius-lg);
+    background: transparent;
+    color: var(--neutral-dark);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-weight: 500;
+    min-width: 120px;
+}
+
+.layer-btn:hover {
+    background: var(--neutral-light);
+}
+
+.layer-btn.active {
+    color: white;
+    font-weight: 600;
+}
+
+.layer-btn[data-layer="historical"].active {
+    background: var(--layer-historical);
+}
+
+.layer-btn[data-layer="lifestyle"].active {
+    background: var(--layer-lifestyle);
+}
+
+.layer-btn[data-layer="utility"].active {
+    background: var(--layer-utility);
+}
+
+.layer-btn[data-layer="future"].active {
+    background: var(--layer-future);
+}
+
+.layer-btn i {
+    font-size: 1.2rem;
+}
+
+/* 地圖控制項 */
+.map-controls {
+    position: absolute;
+    top: 100px;
+    right: var(--space-6);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.control-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    color: var(--neutral-dark);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+}
+
+.control-btn:hover {
+    background: white;
+    color: var(--primary-earth);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* 故事面板 */
+.story-panel {
+    position: absolute;
+    top: 100px;
+    right: var(--space-6);
+    width: 400px;
+    max-height: calc(100vh - 200px);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    z-index: 100;
+    transform: translateX(100%);
+    transition: transform var(--transition-normal);
+    overflow: hidden;
+}
+
+.story-panel.open {
+    transform: translateX(0);
+}
+
+.story-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--neutral-medium);
+    background: var(--primary-earth);
+    color: white;
+}
+
+.story-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.close-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.story-content {
+    padding: var(--space-4);
+    overflow-y: auto;
+    max-height: calc(100vh - 300px);
+}
+
+.timeline-slider {
+    margin-bottom: var(--space-6);
+}
+
+.timeline-slider label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+    color: var(--neutral-dark);
+}
+
+.timeline-slider input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--neutral-medium);
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.timeline-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-earth);
+    cursor: pointer;
+}
+
+.timeline-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--space-2);
+    font-size: 0.875rem;
+    color: var(--neutral-medium);
+}
+
+.narrative-content {
+    margin-bottom: var(--space-6);
+    line-height: 1.7;
+}
+
+.related-places h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+    color: var(--neutral-dark);
+}
+
+.places-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.place-item {
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    background: var(--neutral-light);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.place-item:hover {
+    background: var(--neutral-medium);
+}
+
+/* 房源發現面板 */
+.property-panel {
+    position: absolute;
+    bottom: var(--space-6);
+    left: var(--space-6);
+    width: 350px;
+    max-height: 400px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    z-index: 100;
+    transform: translateY(100%);
+    transition: transform var(--transition-normal);
+    overflow: hidden;
+}
+
+.property-panel.open {
+    transform: translateY(0);
+}
+
+.property-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--neutral-medium);
+    background: var(--primary-earth);
+    color: white;
+}
+
+.property-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.property-content {
+    padding: var(--space-4);
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+.property-card {
+    padding: var(--space-4);
+    border: 1px solid var(--neutral-medium);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-3);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.property-card:hover {
+    border-color: var(--primary-earth);
+    box-shadow: var(--shadow-md);
+}
+
+.property-card h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+    color: var(--neutral-dark);
+}
+
+.property-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-earth);
+    margin-bottom: var(--space-2);
+}
+
+.property-details {
+    display: flex;
+    gap: var(--space-4);
+    font-size: 0.875rem;
+    color: var(--neutral-medium);
+}
+
+/* 底部資訊欄 */
+.bottom-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: var(--space-3) var(--space-6);
+}
+
+.info-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-size: 0.875rem;
+}
+
+/* 湧現式房源彈窗 */
+.property-popup {
+    position: absolute;
+    z-index: 200;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--neutral-medium);
+    max-width: 300px;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all var(--transition-normal);
+    pointer-events: none;
+}
+
+.property-popup.show {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.popup-image {
+    width: 100%;
+    height: 150px;
+    background: var(--neutral-light);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    overflow: hidden;
+}
+
+.popup-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.popup-content {
+    padding: var(--space-4);
+}
+
+.popup-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+    color: var(--neutral-dark);
+}
+
+.popup-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-earth);
+    margin-bottom: var(--space-3);
+}
+
+.popup-details {
+    display: flex;
+    gap: var(--space-4);
+    margin-bottom: var(--space-3);
+    font-size: 0.875rem;
+    color: var(--neutral-medium);
+}
+
+.popup-description {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--neutral-dark);
+    margin-bottom: var(--space-3);
+}
+
+.popup-button {
+    width: 100%;
+    padding: var(--space-3);
+    background: var(--primary-earth);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.popup-button:hover {
+    background: #A0522D;
+}
+
+/* 模態框 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+}
+
+.modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow: hidden;
+    transform: scale(0.9);
+    transition: transform var(--transition-normal);
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-6);
+    border-bottom: 1px solid var(--neutral-medium);
+}
+
+.modal-header h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--neutral-dark);
+}
+
+.modal-body {
+    padding: var(--space-6);
+    overflow-y: auto;
+    max-height: 60vh;
+}
+
+.help-section {
+    margin-bottom: var(--space-6);
+}
+
+.help-section h4 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+    color: var(--primary-earth);
+}
+
+.help-section p {
+    line-height: 1.6;
+    color: var(--neutral-dark);
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: var(--space-4);
+    }
+
+    .search-container {
+        margin: 0;
+        max-width: 100%;
+    }
+
+    .layer-toggle {
+        top: 120px;
+        left: var(--space-4);
+    }
+
+    .layer-buttons {
+        flex-direction: row;
+        gap: var(--space-2);
+    }
+
+    .layer-btn {
+        min-width: auto;
+        padding: var(--space-2);
+    }
+
+    .layer-btn span {
+        display: none;
+    }
+
+    .story-panel {
+        width: calc(100vw - 2rem);
+        right: var(--space-4);
+        top: 120px;
+    }
+
+    .property-panel {
+        width: calc(100vw - 2rem);
+        left: var(--space-4);
+    }
+
+    .map-controls {
+        top: 120px;
+        right: var(--space-4);
+    }
+
+    .info-content {
+        flex-direction: column;
+        gap: var(--space-2);
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .layer-toggle {
+        top: 140px;
+    }
+
+    .story-panel {
+        top: 140px;
+    }
+
+    .map-controls {
+        top: 140px;
+    }
+}
+
+/* 自訂 Leaflet 樣式 */
+.leaflet-container {
+    font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.leaflet-popup-content {
+    margin: var(--space-4);
+    font-size: 0.875rem;
+}
+
+.leaflet-popup-tip {
+    background: white;
+}
+
+/* 湧現動畫 */
+@keyframes emerge {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.emerge-animation {
+    animation: emerge 0.3s ease-out;
+}
+
+/* 滾動條樣式 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--neutral-light);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--neutral-medium);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neutral-dark);
+}
