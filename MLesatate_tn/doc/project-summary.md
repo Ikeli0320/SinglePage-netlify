@@ -12,10 +12,11 @@
 ## 設計架構總覽
 
 ### 1. 技術架構
-- **前端**：React + TypeScript + Mapbox GL JS
+- **前端**：React + TypeScript + Leaflet.js (OpenStreetMap)
 - **後端**：Node.js + Express + PostgreSQL + PostGIS
 - **AI/ML**：Python + TensorFlow/PyTorch
 - **雲端**：AWS/Azure + Docker + Kubernetes
+- **地圖服務**：OpenStreetMap (免費開源)
 
 ### 2. UI/UX 設計
 - **設計系統**：完整的組件庫和設計標記
@@ -108,7 +109,12 @@ PropertyDiscovery/
 - **上下文感知推薦**：基於探索行為的智慧推薦
 - **預測性分析**：未來發展趨勢預測
 
-### 3. 沉浸式介面設計
+### 3. 開源地圖技術
+- **OpenStreetMap 整合**：免費且可自訂的地圖服務
+- **Leaflet.js 框架**：輕量級且高效能的地圖渲染
+- **自訂圖層系統**：支援多種故事圖層的動態切換
+
+### 4. 沉浸式介面設計
 - **全螢幕地圖體驗**：最大化地理探索空間
 - **分層式資訊架構**：多維度的城市解讀
 - **湧現式互動設計**：自然的資訊發現流程
@@ -119,6 +125,7 @@ PropertyDiscovery/
 - **獨特的價值主張**：地理故事導向的房地產平台
 - **技術壁壘**：AI 驅動的內容生成和推薦系統
 - **用戶粘性**：沉浸式的探索體驗
+- **成本優勢**：使用免費開源的 OpenStreetMap 服務
 
 ### 2. 商業模式
 - **B2C 服務**：個人用戶的房地產探索服務

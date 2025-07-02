@@ -9,13 +9,14 @@
 - **湧現式發現**：基於上下文的智慧房源推薦
 
 ### 1.2 技術棧選擇
-- **前端**：React + TypeScript + Mapbox GL JS
+- **前端**：React + TypeScript + Leaflet.js (OpenStreetMap)
 - **後端**：Node.js + Express + TypeScript
 - **資料庫**：PostgreSQL + PostGIS (空間資料)
 - **AI/ML**：Python + TensorFlow/PyTorch
 - **快取**：Redis
 - **搜尋引擎**：Elasticsearch
 - **雲端服務**：AWS/Azure
+- **地圖服務**：OpenStreetMap + Leaflet.js
 
 ## 2. 前端架構
 
@@ -73,17 +74,21 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
   activeLayers,
   onPropertyDiscover
 }) => {
-  const mapRef = useRef<mapboxgl.Map>();
+  const mapRef = useRef<L.Map>();
   const [currentViewport, setCurrentViewport] = useState(initialViewport);
   
   // 地圖初始化
   useEffect(() => {
-    mapRef.current = new mapboxgl.Map({
-      container: 'map-container',
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [initialViewport.longitude, initialViewport.latitude],
-      zoom: initialViewport.zoom
-    });
+    mapRef.current = L.map('map-container').setView(
+      [initialViewport.latitude, initialViewport.longitude], 
+      initialViewport.zoom
+    );
+    
+    // 添加 OpenStreetMap 圖層
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors',
+      maxZoom: 19
+    }).addTo(mapRef.current);
     
     // 註冊互動事件
     setupMapInteractions();
@@ -347,6 +352,7 @@ services:
     environment:
       - DATABASE_URL=${DATABASE_URL}
       - REDIS_URL=${REDIS_URL}
+      - OPENSTREETMAP_TILES_URL=https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
     depends_on:
       - postgres
       - redis

@@ -10,6 +10,7 @@
 - **直觀互動**：基於地理空間的自然互動方式
 - **故事驅動**：每個 UI 元素都服務於講述地理故事
 - **漸進式披露**：資訊按需呈現，避免認知負載過重
+- **開源友好**：使用 OpenStreetMap 提供免費且可自訂的地圖服務
 
 ## 2. 視覺設計系統
 
@@ -129,6 +130,11 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
         className="absolute top-4 right-4 pointer-events-auto"
         onViewportChange={onViewportChange}
       />
+      
+      {/* OpenStreetMap 版權資訊 */}
+      <div className="absolute bottom-2 left-2 text-xs text-gray-600 bg-white/80 px-2 py-1 rounded pointer-events-auto">
+        © OpenStreetMap contributors
+      </div>
     </div>
   );
 };
