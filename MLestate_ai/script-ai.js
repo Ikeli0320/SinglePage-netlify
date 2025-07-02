@@ -372,7 +372,7 @@ class AIRealEstateAssistant {
 
     startWelcomeSequence() {
         setTimeout(() => {
-            this.speak('歡迎使用美樂AI不動產，我是您的智慧房地產顧問');
+            this.speak('歡迎使用美樂智能不動產，我是您的智慧房地產顧問');
         }, 1000);
     }
 
