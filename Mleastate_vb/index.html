@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe-Centric Living - 情感化房地產探索平台</title>
+    <link rel="stylesheet" href="style-vb.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+
+<body>
+    <!-- 導航列 -->
+    <header class="vibe-header">
+        <nav class="vibe-navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <i class="fas fa-heart"></i>
+                    <span>Vibe-Centric Living</span>
+                </div>
+                <div class="nav-menu">
+                    <a href="#explore" class="nav-link">探索氛圍</a>
+                    <a href="#stories" class="nav-link">社群故事</a>
+                    <a href="#map" class="nav-link">地圖探索</a>
+                    <a href="#communities" class="nav-link">社區指南</a>
+                </div>
+                <div class="nav-actions">
+                    <button class="vibe-mode-toggle" id="vibeModeToggle">
+                        <i class="fas fa-magic"></i>
+                        <span>氛圍模式</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="vibe-main">
+        <!-- 情感化探索核心區域 -->
+        <section class="emotive-exploration" id="explore">
+            <div class="container">
+                <div class="exploration-hero">
+                    <div class="hero-content">
+                        <h1 class="hero-title">
+                            找到屬於你的
+                            <span class="highlight">生活氛圍</span>
+                        </h1>
+                        <p class="hero-subtitle">
+                            透過情感和生活方式，探索最適合你的社區。不再只是找房子，而是尋找你的歸屬感。
+                        </p>
+
+                        <!-- 氛圍搜尋欄 -->
+                        <div class="vibe-search-bar">
+                            <div class="search-inputs">
+                                <div class="input-group">
+                                    <label>我想尋找一個感覺</label>
+                                    <input type="text" class="emotion-input" placeholder="寧靜清幽、文創藝術、熱鬧繁華..."
+                                        id="emotionInput">
+                                </div>
+                                <div class="input-group">
+                                    <label>且適合</label>
+                                    <input type="text" class="lifestyle-input" placeholder="遛狗散步、深夜食堂、週末登山..."
+                                        id="lifestyleInput">
+                                </div>
+                            </div>
+                            <button class="explore-button" id="exploreButton">
+                                <i class="fas fa-search"></i>
+                                探索我的理想生活
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hero-visual">
+                        <div class="emotion-tag-cloud" id="emotionTagCloud">
+                            <button class="emotion-tag" data-emotion="peaceful">寧靜清幽</button>
+                            <button class="emotion-tag" data-emotion="creative">文創藝術</button>
+                            <button class="emotion-tag" data-emotion="lively">熱鬧繁華</button>
+                            <button class="emotion-tag" data-emotion="natural">綠意盎然</button>
+                            <button class="emotion-tag" data-emotion="cozy">溫馨舒適</button>
+                            <button class="emotion-tag" data-emotion="elegant">優雅精緻</button>
+                            <button class="emotion-tag" data-emotion="energetic">活力四射</button>
+                            <button class="emotion-tag" data-emotion="tranquil">靜謐祥和</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 社群故事輪播 -->
+        <section class="community-stories" id="stories">
+            <div class="container">
+                <h2 class="section-title">探索社群故事</h2>
+                <div class="stories-carousel" id="storiesCarousel">
+                    <div class="story-card active">
+                        <div class="story-image">
+                            <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="信義區故事">
+                        </div>
+                        <div class="story-content">
+                            <div class="story-meta">
+                                <span class="story-location">信義區</span>
+                                <span class="story-type">在地職人</span>
+                            </div>
+                            <h3>咖啡店老闆的日常</h3>
+                            <p>「每天早上5點開始烘焙咖啡豆，看著鄰居們陸續來買咖啡，這就是我的生活節奏。信義區不只是商業區，這裡有最溫暖的人情味。」</p>
+                            <div class="story-author">
+                                <img src="https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?auto=compress&cs=tinysrgb&w=100"
+                                    alt="老闆">
+                                <span>王老闆 - 巷弄咖啡</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="story-image">
+                            <img src="https://images.pexels.com/photos/2251247/pexels-photo-2251247.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="大安區故事">
+                        </div>
+                        <div class="story-content">
+                            <div class="story-meta">
+                                <span class="story-location">大安區</span>
+                                <span class="story-type">居民見證</span>
+                            </div>
+                            <h3>書香巷弄的午後時光</h3>
+                            <p>「大安區的書店密度是全台北最高的，每個週末我都在不同的書店間穿梭。這裡不只是居住的地方，更是心靈的棲息地。」</p>
+                            <div class="story-author">
+                                <img src="https://images.pexels.com/photos/3777946/pexels-photo-3777946.jpeg?auto=compress&cs=tinysrgb&w=100"
+                                    alt="居民">
+                                <span>李小姐 - 在地居民</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="story-image">
+                            <img src="https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                alt="內湖區故事">
+                        </div>
+                        <div class="story-content">
+                            <div class="story-meta">
+                                <span class="story-location">內湖區</span>
+                                <span class="story-type">創業故事</span>
+                            </div>
+                            <h3>科技園區的創業夢</h3>
+                            <p>「選擇在內湖創業，不只是因為這裡有完整的科技生態，更因為這裡的氛圍鼓勵創新。每天都能感受到這座城市的活力。」</p>
+                            <div class="story-author">
+                                <img src="https://images.pexels.com/photos/3777949/pexels-photo-3777949.jpeg?auto=compress&cs=tinysrgb&w=100"
+                                    alt="創業者">
+                                <span>張先生 - 新創公司創辦人</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev" id="prevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="carousel-indicators">
+                        <span class="indicator active" data-index="0"></span>
+                        <span class="indicator" data-index="1"></span>
+                        <span class="indicator" data-index="2"></span>
+                    </div>
+                    <button class="carousel-btn next" id="nextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 互動式氛圍地圖 -->
+        <section class="vibe-map" id="map">
+            <div class="container">
+                <h2 class="section-title">感受城市脈動</h2>
+                <div class="map-container">
+                    <div class="map-controls">
+                        <div class="layer-controls">
+                            <button class="layer-btn active" data-layer="lifestyle">
+                                <i class="fas fa-coffee"></i>
+                                生活風格
+                            </button>
+                            <button class="layer-btn" data-layer="vibe">
+                                <i class="fas fa-heart"></i>
+                                氛圍熱力
+                            </button>
+                            <button class="layer-btn" data-layer="future">
+                                <i class="fas fa-rocket"></i>
+                                未來潛力
+                            </button>
+                        </div>
+                        <div class="map-legend">
+                            <div class="legend-item">
+                                <span class="legend-color creative"></span>
+                                <span>文創藝術</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color peaceful"></span>
+                                <span>寧靜清幽</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color lively"></span>
+                                <span>熱鬧繁華</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="map-wrapper">
+                        <div id="vibeMap" class="interactive-map"></div>
+                        <div class="map-overlay">
+                            <div class="poi-card" id="poiCard" style="display: none;">
+                                <div class="poi-header">
+                                    <h4 id="poiTitle">信義區</h4>
+                                    <button class="poi-close" id="poiClose">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="poi-content">
+                                    <p id="poiDescription">充滿活力的商業區，擁有豐富的夜生活和購物選擇。</p>
+                                    <div class="poi-stats">
+                                        <div class="stat">
+                                            <span class="stat-value" id="poiVibeScore">8.5</span>
+                                            <span class="stat-label">氛圍評分</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-value" id="poiPropertyCount">156</span>
+                                            <span class="stat-label">可售物件</span>
+                                        </div>
+                                    </div>
+                                    <button class="explore-community">探索社區</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 社群DNA展示 -->
+        <section class="community-dna" id="communities">
+            <div class="container">
+                <h2 class="section-title">社群DNA分析</h2>
+                <div class="dna-grid">
+                    <div class="dna-card">
+                        <div class="dna-header">
+                            <div class="dna-icon creative">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3>信義區</h3>
+                        </div>
+                        <div class="dna-content">
+                            <div class="dna-tags">
+                                <span class="dna-tag">文創藝術</span>
+                                <span class="dna-tag">夜生活</span>
+                                <span class="dna-tag">購物天堂</span>
+                            </div>
+                            <div class="dna-stats">
+                                <div class="dna-stat">
+                                    <span class="stat-label">藝術氣息</span>
+                                    <div class="stat-bar">
+                                        <div class="stat-fill" style="width: 85%"></div>
+                                    </div>
+                                    <span class="stat-value">85%</span>
+                                </div>
+                                <div class="dna-stat">
+                                    <span class="stat-label">生活便利性</span>
+                                    <div class="stat-bar">
+                                        <div class="stat-fill" style="width: 92%"></div>
+                                    </div>
+                                    <span class="stat-value">92%</span>
+                                </div>
+                                <div class="dna-stat">
+                                    <span class="stat-label">社群連結</span>
+                                    <div class="stat-bar">
+                                        <div class="stat-fill" style="width: 78%"></div>
+                                    </div>
+                                    <span class="stat-value">78%</span>
+                                </div>
+                            </div>
+                            <button class="explore-dna">深入了解</button>
+                        </div>
+                    </div>
+
+                    <div class="dna-card">
+                        <div class="dna-header">
+                            <div class="dna-icon peaceful">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h3>大安區</h3>
+                        </div>
+                        <div class="dna-content">
+                            <div class="dna-tags">
+                                <span class="dna-tag">書香文化</span>
+                                <span class="dna-tag">寧靜優雅</span>
+                                <span class="dna-tag">學區優質</span>
+                            </div>
+                            <div class="dna-stats">
+                                <div class="dna-stat">
+                                    <span class="stat-label">文化氣息</span>
+                                    <div class="stat-bar">
+                                        <div class="stat-fill" style="width: 88%"></div>
+                                    </div>
+                                    <span class="stat-value">88%</span>
+                                </div>
+                                <div class="dna-stat">
+                                    <span class="stat-label">生活品質</span>
+                                    <div class="stat-bar">
+                                        <div class="stat-fill" style="width: 95%"></div>
+                                    </div>
+                                    <span class="stat-value">95%</span>
+                                </div>
+                                <div class="dna-stat">
+                                    <span class="stat-label">教育資源</span>
+                                    <div class="stat-bar">
+                                        <div class="stat-fill" style="width: 90%"></div>
+                                    </div>
+                                    <span class="stat-value">90%</span>
+                                </div>
+                            </div>
+                            <button class="explore-dna">深入了解</button>
+                        </div>
+                    </div>
+
+                    <div class="dna-card">
+                        <div class="dna-header">
+                            <div class="dna-icon natural">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                            <h3>內湖區</h3>
+                        </div>
+                        <div class="dna-content">
+                            <div class="dna-tags">
+                                <span class="dna-tag">科技創新</span>
+                                <span class="dna-tag">自然環境</span>
+                                <span class="dna-tag">創業氛圍</span>
+                            </div>
+                            <div class="dna-stats">
+                                <div class="dna-stat">
+                                    <span class="stat-label">創新活力</span>
+                                    <div class="stat-bar">
+                                        <div class="stat-fill" style="width: 82%"></div>
+                                    </div>
+                                    <span class="stat-value">82%</span>
+                                </div>
+                                <div class="dna-stat">
+                                    <span class="stat-label">自然環境</span>
+                                    <div class="stat-bar">
+                                        <div class="stat-fill" style="width: 75%"></div>
+                                    </div>
+                                    <span class="stat-value">75%</span>
+                                </div>
+                                <div class="dna-stat">
+                                    <span class="stat-label">發展潛力</span>
+                                    <div class="stat-bar">
+                                        <div class="stat-fill" style="width: 88%"></div>
+                                    </div>
+                                    <span class="stat-value">88%</span>
+                                </div>
+                            </div>
+                            <button class="explore-dna">深入了解</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 推薦房產 -->
+        <section class="vibe-properties">
+            <div class="container">
+                <h2 class="section-title">為您推薦的房產</h2>
+                <div class="properties-grid">
+                    <div class="property-card">
+                        <div class="property-image">
+                            <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=400"
+                                alt="信義區現代宅">
+                            <div class="property-vibe-tag">文創氛圍</div>
+                        </div>
+                        <div class="property-content">
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>信義區 松仁路</span>
+                            </div>
+                            <h3>現代風設計宅</h3>
+                            <p class="property-description">鄰近文創園區，充滿藝術氣息，適合追求生活品質的你。</p>
+                            <div class="property-details">
+                                <span>2房2廳1衛</span>
+                                <span>35.8坪</span>
+                                <span>7F/12F</span>
+                            </div>
+                            <div class="property-price">2,180萬</div>
+                            <div class="property-vibe-match">
+                                <span>氛圍匹配度</span>
+                                <div class="match-bar">
+                                    <div class="match-fill" style="width: 92%"></div>
+                                </div>
+                                <span>92%</span>
+                            </div>
+                            <button class="view-property">查看詳情</button>
+                        </div>
+                    </div>
+
+                    <div class="property-card">
+                        <div class="property-image">
+                            <img src="https://images.pexels.com/photos/2251247/pexels-photo-2251247.jpeg?auto=compress&cs=tinysrgb&w=400"
+                                alt="大安區書香宅">
+                            <div class="property-vibe-tag">寧靜優雅</div>
+                        </div>
+                        <div class="property-content">
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>大安區 敦化南路</span>
+                            </div>
+                            <h3>書香巷弄宅</h3>
+                            <p class="property-description">位於書店林立的巷弄，寧靜優雅，適合喜歡閱讀的你。</p>
+                            <div class="property-details">
+                                <span>3房2廳2衛</span>
+                                <span>42.5坪</span>
+                                <span>5F/8F</span>
+                            </div>
+                            <div class="property-price">3,580萬</div>
+                            <div class="property-vibe-match">
+                                <span>氛圍匹配度</span>
+                                <div class="match-bar">
+                                    <div class="match-fill" style="width: 88%"></div>
+                                </div>
+                                <span>88%</span>
+                            </div>
+                            <button class="view-property">查看詳情</button>
+                        </div>
+                    </div>
+
+                    <div class="property-card">
+                        <div class="property-image">
+                            <img src="https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=400"
+                                alt="內湖科技宅">
+                            <div class="property-vibe-tag">創新活力</div>
+                        </div>
+                        <div class="property-content">
+                            <div class="property-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>內湖區 星雲街</span>
+                            </div>
+                            <h3>科技園區宅</h3>
+                            <p class="property-description">鄰近科技園區，充滿創新活力，適合創業者或科技工作者。</p>
+                            <div class="property-details">
+                                <span>2房1廳1衛</span>
+                                <span>28.5坪</span>
+                                <span>12F/15F</span>
+                            </div>
+                            <div class="property-price">1,880萬</div>
+                            <div class="property-vibe-match">
+                                <span>氛圍匹配度</span>
+                                <div class="match-bar">
+                                    <div class="match-fill" style="width: 85%"></div>
+                                </div>
+                                <span>85%</span>
+                            </div>
+                            <button class="view-property">查看詳情</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 氛圍探索浮動按鈕 -->
+    <div class="vibe-fab" id="vibeFab">
+        <i class="fas fa-heart"></i>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script-vb.js"></script>
+</body>
+
+</html>
