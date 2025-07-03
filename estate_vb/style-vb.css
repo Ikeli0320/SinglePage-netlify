@@ -963,3 +963,463 @@ body {
         padding: 1.5rem;
     }
 }
+
+/* 新增：地圖佔位符樣式 */
+.map-placeholder {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.map-overlay-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.map-hero {
+    margin-bottom: 3rem;
+}
+
+.map-hero i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--accent-vibe);
+}
+
+.map-hero h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.map-hero p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.map-areas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.map-area {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.map-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.map-area:hover::before {
+    transform: translateX(100%);
+}
+
+.map-area:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.map-area.creative {
+    border-left: 4px solid var(--vibe-creative);
+}
+
+.map-area.peaceful {
+    border-left: 4px solid var(--vibe-peaceful);
+}
+
+.map-area.natural {
+    border-left: 4px solid var(--vibe-natural);
+}
+
+.map-area.lively {
+    border-left: 4px solid var(--vibe-lively);
+}
+
+.area-marker {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.area-info h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.area-info p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 1rem;
+}
+
+.vibe-score {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* 優化整體排版 */
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-vibe), var(--accent-vibe));
+    border-radius: 2px;
+}
+
+/* 改善間距 */
+.emotive-exploration {
+    padding: 6rem 0;
+}
+
+.community-stories {
+    padding: 5rem 0;
+    background: var(--neutral-50);
+}
+
+.vibe-map {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.community-dna {
+    padding: 5rem 0;
+    background: white;
+}
+
+.vibe-properties {
+    padding: 5rem 0;
+    background: var(--neutral-50);
+}
+
+/* 改善卡片樣式 */
+.dna-card,
+.property-card {
+    border-radius: 20px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.dna-card:hover,
+.property-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* 改善按鈕樣式 */
+.explore-button,
+.explore-dna,
+.view-property,
+.explore-community {
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.explore-button::before,
+.explore-dna::before,
+.view-property::before,
+.explore-community::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.explore-button:hover::before,
+.explore-dna:hover::before,
+.view-property:hover::before,
+.explore-community:hover::before {
+    left: 100%;
+}
+
+/* 改善響應式設計 */
+@media (max-width: 768px) {
+    .map-areas {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .map-placeholder {
+        padding: 2rem 1rem;
+        min-height: 300px;
+    }
+
+    .map-hero h3 {
+        font-size: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .emotive-exploration,
+    .community-stories,
+    .vibe-map,
+    .community-dna,
+    .vibe-properties {
+        padding: 3rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .map-placeholder {
+        padding: 1.5rem 1rem;
+        min-height: 250px;
+    }
+
+    .map-hero i {
+        font-size: 2rem;
+    }
+
+    .map-hero h3 {
+        font-size: 1.25rem;
+    }
+
+    .map-area {
+        padding: 1rem;
+    }
+
+    .area-marker {
+        width: 40px;
+        height: 40px;
+        font-size: 1.25rem;
+    }
+}
+
+/* 圓形地圖區塊 */
+.circle-map-bg {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    background: radial-gradient(circle at 60% 40%, #f093fb 0%, #f5576c 100%);
+    border-radius: 30px;
+    box-shadow: 0 8px 32px rgba(200, 80, 160, 0.12);
+    margin: 0 auto;
+    overflow: hidden;
+    min-width: 320px;
+    min-height: 320px;
+    max-width: 700px;
+}
+
+.city-label {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.1em;
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.circle-area {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: transform 0.2s cubic-bezier(.4, 2, .6, 1), box-shadow 0.2s;
+}
+
+.circle-area .area-dot {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 0.3rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+    border: 3px solid #fff;
+    background: linear-gradient(135deg, #9B59B6 0%, #E74C3C 100%);
+    transition: background 0.3s, box-shadow 0.2s;
+}
+
+.circle-area.creative .area-dot {
+    background: linear-gradient(135deg, #9B59B6 0%, #8e44ad 100%);
+}
+
+.circle-area.peaceful .area-dot {
+    background: linear-gradient(135deg, #3498DB 0%, #2980b9 100%);
+}
+
+.circle-area.natural .area-dot {
+    background: linear-gradient(135deg, #27AE60 0%, #16a085 100%);
+}
+
+.circle-area.lively .area-dot {
+    background: linear-gradient(135deg, #E74C3C 0%, #e67e22 100%);
+}
+
+.circle-area .area-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+    letter-spacing: 0.05em;
+}
+
+.circle-area:hover {
+    transform: scale(1.13) translateY(-6px);
+    z-index: 10;
+}
+
+.circle-area:hover .area-dot {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+    filter: brightness(1.15);
+}
+
+/* 浮動卡片 */
+.area-float-card {
+    position: absolute;
+    min-width: 180px;
+    max-width: 260px;
+    background: rgba(255, 255, 255, 0.98);
+    color: #333;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(80, 80, 80, 0.18);
+    padding: 1.2rem 1.3rem 1rem 1.3rem;
+    left: 50%;
+    top: 10%;
+    transform: translate(-50%, 0);
+    z-index: 99;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s, top 0.18s;
+    font-size: 1rem;
+    text-align: left;
+    line-height: 1.6;
+}
+
+.area-float-card.show {
+    opacity: 1;
+    top: 0;
+    pointer-events: auto;
+}
+
+.float-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: #222;
+}
+
+.float-desc {
+    font-size: 0.98rem;
+    margin-bottom: 0.7rem;
+    color: #555;
+}
+
+.float-score {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(90deg, #9B59B6 0%, #E74C3C 100%);
+    border-radius: 12px;
+    padding: 0.2rem 0.8rem;
+    display: inline-block;
+}
+
+@media (max-width: 900px) {
+    .circle-map-bg {
+        height: 340px;
+        min-height: 220px;
+    }
+
+    .area-float-card {
+        font-size: 0.95rem;
+        min-width: 140px;
+        max-width: 180px;
+        padding: 0.8rem 0.8rem 0.7rem 0.8rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .circle-map-bg {
+        height: 220px;
+        min-height: 120px;
+    }
+
+    .area-float-card {
+        font-size: 0.9rem;
+        min-width: 100px;
+        max-width: 140px;
+        padding: 0.5rem 0.5rem 0.4rem 0.5rem;
+    }
+
+    .circle-area .area-dot {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+
+    .circle-area .area-name {
+        font-size: 0.85rem;
+    }
+}

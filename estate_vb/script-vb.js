@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initVibeSearch();
     initVibeMode();
     initFloatingButton();
+    initCircleMapFloatCard();
 });
 
 // 情感標籤功能
@@ -88,12 +89,14 @@ function initVibeMap() {
         'lifestyle': {
             '信義區': { lat: 25.0330, lng: 121.5654, vibe: 'creative', score: 8.5, properties: 156 },
             '大安區': { lat: 25.0260, lng: 121.5440, vibe: 'peaceful', score: 9.2, properties: 203 },
-            '內湖區': { lat: 25.0830, lng: 121.5654, vibe: 'natural', score: 7.8, properties: 89 }
+            '內湖區': { lat: 25.0830, lng: 121.5654, vibe: 'natural', score: 7.8, properties: 89 },
+            '中正區': { lat: 25.0478, lng: 121.5170, vibe: 'lively', score: 7.9, properties: 134 }
         },
         'vibe': {
             '信義區': { intensity: 85, color: '#9B59B6' },
             '大安區': { intensity: 92, color: '#3498DB' },
-            '內湖區': { intensity: 78, color: '#27AE60' }
+            '內湖區': { intensity: 78, color: '#27AE60' },
+            '中正區': { intensity: 79, color: '#E74C3C' }
         }
     };
 
@@ -105,10 +108,73 @@ function initVibeMap() {
     const poiPropertyCount = document.getElementById('poiPropertyCount');
     const poiClose = document.getElementById('poiClose');
 
+    // 新增：地圖區域互動
+    const mapAreas = document.querySelectorAll('.map-area');
+    mapAreas.forEach(area => {
+        area.addEventListener('click', function () {
+            const areaType = this.getAttribute('data-area');
+            let areaName, data;
+
+            // 根據區域類型獲取數據
+            switch (areaType) {
+                case 'xinyi':
+                    areaName = '信義區';
+                    data = mapData.lifestyle['信義區'];
+                    break;
+                case 'daan':
+                    areaName = '大安區';
+                    data = mapData.lifestyle['大安區'];
+                    break;
+                case 'neihu':
+                    areaName = '內湖區';
+                    data = mapData.lifestyle['內湖區'];
+                    break;
+                case 'zhongzheng':
+                    areaName = '中正區';
+                    data = mapData.lifestyle['中正區'];
+                    break;
+                default:
+                    return;
+            }
+
+            // 更新POI卡片
+            poiTitle.textContent = areaName;
+            poiDescription.textContent = getAreaDescription(areaName, data.vibe);
+            poiVibeScore.textContent = data.score;
+            poiPropertyCount.textContent = data.properties;
+
+            // 顯示POI卡片
+            poiCard.style.display = 'block';
+
+            // 添加點擊動畫效果
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+
+            // 顯示通知
+            showNotification(`正在探索${areaName}的氛圍特色...`, 'info');
+        });
+
+        // 添加懸停效果
+        area.addEventListener('mouseenter', function () {
+            this.style.transform = 'translateY(-5px) scale(1.02)';
+        });
+
+        area.addEventListener('mouseleave', function () {
+            this.style.transform = '';
+        });
+    });
+
     // 模擬地圖點擊
     const mapArea = document.getElementById('vibeMap');
     if (mapArea) {
         mapArea.addEventListener('click', function (e) {
+            // 如果點擊的是地圖區域，不執行此處邏輯
+            if (e.target.closest('.map-area')) {
+                return;
+            }
+
             // 模擬點擊不同區域
             const rect = this.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -156,6 +222,14 @@ function initVibeMap() {
 
             // 更新地圖樣式
             updateMapLayer(layer);
+
+            // 顯示圖層切換通知
+            const layerNames = {
+                'lifestyle': '生活風格',
+                'vibe': '氛圍熱力',
+                'future': '未來潛力'
+            };
+            showNotification(`已切換到${layerNames[layer]}圖層`, 'info');
         });
     });
 }
@@ -292,17 +366,26 @@ function getAreaDescription(area, vibe) {
         '信義區': {
             'creative': '充滿活力的商業區，擁有豐富的夜生活和購物選擇。',
             'peaceful': '高樓林立中的寧靜角落，適合追求品質生活的你。',
-            'natural': '都市中的綠洲，公園綠地環繞，親近自然。'
+            'natural': '都市中的綠洲，公園綠地環繞，親近自然。',
+            'lively': '熱鬧繁華的商業中心，充滿都市活力。'
         },
         '大安區': {
             'creative': '文藝氣息濃厚，書店咖啡廳林立，適合文青生活。',
             'peaceful': '寧靜優雅的住宅區，學區優質，生活品質高。',
-            'natural': '綠樹成蔭的街道，公園眾多，環境優美。'
+            'natural': '綠樹成蔭的街道，公園眾多，環境優美。',
+            'lively': '文化氣息濃厚，生活機能完善。'
         },
         '內湖區': {
             'creative': '科技創新氛圍濃厚，適合創業者和科技工作者。',
             'peaceful': '遠離市區喧囂，環境清幽，適合家庭生活。',
-            'natural': '鄰近山區，自然環境優美，空氣清新。'
+            'natural': '鄰近山區，自然環境優美，空氣清新。',
+            'lively': '科技園區周邊，充滿創新活力。'
+        },
+        '中正區': {
+            'creative': '歷史文化與現代藝術的交匯點，充滿文化氣息。',
+            'peaceful': '歷史悠久的寧靜區域，適合文化愛好者。',
+            'natural': '綠意環繞的歷史區域，提供獨特的居住體驗。',
+            'lively': '交通樞紐與文化中心，生活便利且充滿活力。'
         }
     };
 
@@ -453,4 +536,57 @@ document.querySelectorAll('.story-card, .dna-card, .property-card').forEach(el =
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
-}); 
+});
+
+// 新增：圓形地圖區域互動浮動卡片
+function initCircleMapFloatCard() {
+    const areaData = {
+        xinyi: {
+            name: '信義區',
+            desc: '文創藝術、夜生活豐富，都市活力指標。',
+            score: 8.5
+        },
+        daan: {
+            name: '大安區',
+            desc: '書香文化、寧靜優雅，學區優質，生活品質高。',
+            score: 9.2
+        },
+        neihu: {
+            name: '內湖區',
+            desc: '科技創新、自然環境，適合創業與親近自然。',
+            score: 8.8
+        },
+        zhongzheng: {
+            name: '中正區',
+            desc: '歷史文化、交通樞紐，生活便利且充滿活力。',
+            score: 7.9
+        }
+    };
+    const areas = document.querySelectorAll('.circle-area');
+    const floatCard = document.getElementById('areaFloatCard');
+    const floatTitle = document.getElementById('floatTitle');
+    const floatDesc = document.getElementById('floatDesc');
+    const floatScore = document.getElementById('floatScore');
+
+    areas.forEach(area => {
+        area.addEventListener('mouseenter', function (e) {
+            const key = this.getAttribute('data-area');
+            const data = areaData[key];
+            if (!data) return;
+            floatTitle.textContent = data.name;
+            floatDesc.textContent = data.desc;
+            floatScore.textContent = data.score;
+            // 定位卡片
+            const rect = this.getBoundingClientRect();
+            const mapRect = this.parentElement.getBoundingClientRect();
+            floatCard.style.left = (rect.left + rect.width / 2 - mapRect.left) + 'px';
+            floatCard.style.top = (rect.top - mapRect.top - 10) + 'px';
+            floatCard.classList.add('show');
+            floatCard.style.display = 'block';
+        });
+        area.addEventListener('mouseleave', function () {
+            floatCard.classList.remove('show');
+            setTimeout(() => { floatCard.style.display = 'none'; }, 180);
+        });
+    });
+} 
