@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphafolio - 房地產資產情報終端</title>
+
+    <!-- OpenStreetMap Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Chart.js for Financial Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-gray-900 text-white">
+    <!-- 載入畫面 -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-chart-line"></i>
+                <h1>Alphafolio</h1>
+            </div>
+            <p>正在載入資產情報終端...</p>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- 主要應用容器 -->
+    <div id="app" class="app-container">
+        <!-- 頂部導航欄 -->
+        <header class="top-header bg-gray-800 border-b border-gray-700">
+            <div class="header-content max-w-7xl mx-auto px-4 py-3">
+                <div class="flex items-center justify-between">
+                    <div class="logo flex items-center gap-3">
+                        <i class="fas fa-chart-line text-2xl text-green-500"></i>
+                        <span class="text-xl font-bold text-white">Alphafolio</span>
+                        <span class="text-xs text-gray-400 bg-gray-700 px-2 py-1 rounded">PRO</span>
+                    </div>
+
+                    <div class="search-container flex-1 max-w-2xl mx-8">
+                        <div class="search-box relative">
+                            <i
+                                class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" placeholder="搜尋資產代碼、地址或投資指標..." id="search-input"
+                                class="w-full pl-12 pr-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-white" />
+                        </div>
+                    </div>
+
+                    <div class="header-actions flex items-center gap-4">
+                        <div class="market-status flex items-center gap-2">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">市場開放</span>
+                        </div>
+                        <button class="btn-icon" id="notifications-btn" title="警報中心">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                        <button class="btn-icon" id="settings-btn" title="終端設定">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        <div class="user-profile flex items-center gap-2">
+                            <img src="https://via.placeholder.com/32" alt="使用者頭像" class="w-8 h-8 rounded-full" />
+                            <span class="text-sm font-medium">投資者</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要內容區域 -->
+        <main class="main-content max-w-7xl mx-auto px-4 py-6">
+            <!-- Alpha 儀表板 -->
+            <div id="alpha-dashboard" class="mb-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-white">Alpha 儀表板</h2>
+                    <div class="flex gap-2">
+                        <button class="btn-secondary" id="refresh-data">
+                            <i class="fas fa-sync-alt"></i>
+                            刷新數據
+                        </button>
+                        <button class="btn-primary" id="customize-dashboard">
+                            <i class="fas fa-cog"></i>
+                            自訂儀表板
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 投資組合概覽 -->
+                <div class="portfolio-overview grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold">總資產價值</h3>
+                            <i class="fas fa-chart-line text-green-500"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-white mb-2">$12,450,000</div>
+                        <div class="text-sm text-green-500">+2.3% <span class="text-gray-400">本月</span></div>
+                    </div>
+
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold">月現金流</h3>
+                            <i class="fas fa-money-bill-wave text-blue-500"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-white mb-2">$45,200</div>
+                        <div class="text-sm text-green-500">+5.1% <span class="text-gray-400">本月</span></div>
+                    </div>
+
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold">年化回報率</h3>
+                            <i class="fas fa-percentage text-yellow-500"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-white mb-2">8.7%</div>
+                        <div class="text-sm text-green-500">+0.4% <span class="text-gray-400">本月</span></div>
+                    </div>
+
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold">總權益</h3>
+                            <i class="fas fa-home text-purple-500"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-white mb-2">$7,890,000</div>
+                        <div class="text-sm text-green-500">+1.8% <span class="text-gray-400">本月</span></div>
+                    </div>
+                </div>
+
+                <!-- 市場脈動和機會雷達 -->
+                <div class="market-insights grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <!-- 市場脈動 -->
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                            <i class="fas fa-fire text-red-500"></i>
+                            市場脈動
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="market-mover">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-medium">信義區租金增長</div>
+                                        <div class="text-sm text-gray-400">過去30天</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-lg font-bold text-green-500">+12.3%</div>
+                                        <div class="text-sm text-gray-400">全市最高</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="market-mover">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-medium">大安區資本化率</div>
+                                        <div class="text-sm text-gray-400">平均水準</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-lg font-bold text-blue-500">6.8%</div>
+                                        <div class="text-sm text-gray-400">+0.5%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="market-mover">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-medium">內湖區交易量</div>
+                                        <div class="text-sm text-gray-400">週環比</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-lg font-bold text-yellow-500">+18.7%</div>
+                                        <div class="text-sm text-gray-400">異常活躍</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 機會雷達 -->
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                            <i class="fas fa-radar text-green-500"></i>
+                            機會雷達
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="opportunity-alert bg-green-900/30 border border-green-500/30 p-3 rounded">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-medium text-green-400">高資本化率機會</div>
+                                        <div class="text-sm text-gray-400">信義區 3房2廳</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-lg font-bold text-green-500">8.2%</div>
+                                        <button class="text-xs bg-green-600 px-2 py-1 rounded">查看</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="opportunity-alert bg-blue-900/30 border border-blue-500/30 p-3 rounded">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-medium text-blue-400">被低估資產</div>
+                                        <div class="text-sm text-gray-400">大安區 2房1廳</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-lg font-bold text-blue-500">-15%</div>
+                                        <button class="text-xs bg-blue-600 px-2 py-1 rounded">查看</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="opportunity-alert bg-yellow-900/30 border border-yellow-500/30 p-3 rounded">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-medium text-yellow-400">現金流機會</div>
+                                        <div class="text-sm text-gray-400">內湖區 4房2廳</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-lg font-bold text-yellow-500">$8,500</div>
+                                        <button class="text-xs bg-yellow-600 px-2 py-1 rounded">查看</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 風險監測器 -->
+                <div class="risk-monitor bg-gray-800 p-6 rounded-lg border border-gray-700 mb-8">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                        <i class="fas fa-exclamation-triangle text-red-500"></i>
+                        風險監測器
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="risk-alert bg-red-900/30 border border-red-500/30 p-4 rounded">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-exclamation-circle text-red-500 mt-1"></i>
+                                <div>
+                                    <div class="font-medium text-red-400">空置率上升</div>
+                                    <div class="text-sm text-gray-400">信義區 A 資產空置率上升 5%</div>
+                                    <div class="text-xs text-gray-500 mt-1">2小時前</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="risk-alert bg-yellow-900/30 border border-yellow-500/30 p-4 rounded">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-exclamation-triangle text-yellow-500 mt-1"></i>
+                                <div>
+                                    <div class="font-medium text-yellow-400">政策風險</div>
+                                    <div class="text-sm text-gray-400">大安區討論租金管制法案</div>
+                                    <div class="text-xs text-gray-500 mt-1">1天前</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="risk-alert bg-orange-900/30 border border-orange-500/30 p-4 rounded">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-info-circle text-orange-500 mt-1"></i>
+                                <div>
+                                    <div class="font-medium text-orange-400">市場波動</div>
+                                    <div class="text-sm text-gray-400">內湖區房價波動性增加</div>
+                                    <div class="text-xs text-gray-500 mt-1">3天前</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 量化篩選器 -->
+            <div class="quantitative-screener mb-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-white">量化篩選器</h2>
+                    <button class="btn-primary" id="save-screener">
+                        <i class="fas fa-save"></i>
+                        儲存篩選條件
+                    </button>
+                </div>
+
+                <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- 核心篩選指標 -->
+                        <div class="screener-section">
+                            <h4 class="text-lg font-semibold mb-4">核心指標</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">資本化率 (Cap Rate)</label>
+                                    <div class="flex gap-2">
+                                        <input type="number" placeholder="最小值"
+                                            class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2" />
+                                        <input type="number" placeholder="最大值"
+                                            class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">現金投報率 (%)</label>
+                                    <div class="flex gap-2">
+                                        <input type="number" placeholder="最小值"
+                                            class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2" />
+                                        <input type="number" placeholder="最大值"
+                                            class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">月現金流 ($)</label>
+                                    <div class="flex gap-2">
+                                        <input type="number" placeholder="最小值"
+                                            class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2" />
+                                        <input type="number" placeholder="最大值"
+                                            class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 進階篩選條件 -->
+                        <div class="screener-section">
+                            <h4 class="text-lg font-semibold mb-4">進階條件</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">價格 vs AI 估值</label>
+                                    <select class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2">
+                                        <option>任何價格</option>
+                                        <option>低於估值 10%+</option>
+                                        <option>低於估值 20%+</option>
+                                        <option>高於估值 10%+</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">空置率 (%)</label>
+                                    <input type="number" placeholder="最大值"
+                                        class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">租金管制</label>
+                                    <select class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2">
+                                        <option>不限</option>
+                                        <option>不受管制</option>
+                                        <option>受管制</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 地理位置 -->
+                        <div class="screener-section">
+                            <h4 class="text-lg font-semibold mb-4">地理位置</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">行政區</label>
+                                    <select class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2">
+                                        <option>全部</option>
+                                        <option>信義區</option>
+                                        <option>大安區</option>
+                                        <option>內湖區</option>
+                                        <option>松山區</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">學區評分</label>
+                                    <div class="flex gap-2">
+                                        <input type="number" placeholder="最小值"
+                                            class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2" />
+                                        <input type="number" placeholder="最大值"
+                                            class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">開發區</label>
+                                    <select class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2">
+                                        <option>不限</option>
+                                        <option>指定開發區內</option>
+                                        <option>非開發區</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center mt-6 pt-6 border-t border-gray-700">
+                        <div class="text-sm text-gray-400">
+                            找到 <span class="text-white font-bold">1,247</span> 個符合條件的資產
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="btn-secondary" id="reset-screener">
+                                <i class="fas fa-undo"></i>
+                                重置
+                            </button>
+                            <button class="btn-primary" id="apply-screener">
+                                <i class="fas fa-search"></i>
+                                套用篩選
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 資產列表 -->
+            <div class="asset-list mb-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-white">篩選結果</h2>
+                    <div class="flex gap-2">
+                        <button class="btn-secondary" id="export-results">
+                            <i class="fas fa-download"></i>
+                            匯出
+                        </button>
+                        <button class="btn-secondary" id="compare-assets">
+                            <i class="fas fa-balance-scale"></i>
+                            比較
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6" id="asset-grid">
+                    <!-- 資產卡片將動態生成 -->
+                </div>
+            </div>
+        </main>
+
+        <!-- 側邊面板 -->
+        <div class="side-panels">
+            <!-- 資產分析終端 -->
+            <div class="asset-terminal" id="asset-terminal">
+                <div class="terminal-header">
+                    <h3 id="asset-title">資產分析終端</h3>
+                    <button class="close-btn" id="close-terminal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="terminal-content" id="terminal-content">
+                    <!-- 動態生成資產分析內容 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部狀態欄 -->
+        <footer class="bottom-status bg-gray-800 border-t border-gray-700">
+            <div class="max-w-7xl mx-auto px-4 py-3">
+                <div class="flex items-center justify-between text-sm text-gray-400">
+                    <div class="flex items-center gap-4">
+                        <span>最後更新: <span id="last-update">2024-01-15 14:30:25</span></span>
+                        <span>數據延遲: <span class="text-green-500">0.5秒</span></span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span>© OpenStreetMap contributors</span>
+                        <span>Alphafolio v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 設定模態框 -->
+    <div class="modal" id="settings-modal">
+        <div class="modal-content bg-gray-800 border border-gray-700">
+            <div class="modal-header">
+                <h3>終端設定</h3>
+                <button class="close-btn" id="close-settings">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <h4>數據更新頻率</h4>
+                    <select class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2">
+                        <option>即時 (5秒)</option>
+                        <option>快速 (30秒)</option>
+                        <option>標準 (1分鐘)</option>
+                        <option>慢速 (5分鐘)</option>
+                    </select>
+                </div>
+                <div class="settings-section">
+                    <h4>警報設定</h4>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="email-alerts" checked>
+                        電子郵件警報
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="push-alerts" checked>
+                        推播警報
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="sound-alerts">
+                        聲音警報
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

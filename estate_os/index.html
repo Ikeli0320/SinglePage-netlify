@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeOS - 全生命週期房地產管家</title>
+
+    <!-- OpenStreetMap Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-gray-50">
+    <!-- 載入畫面 -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-home"></i>
+                <h1>HomeOS</h1>
+            </div>
+            <p>正在載入您的個人化管家...</p>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- 主要應用容器 -->
+    <div id="app" class="app-container">
+        <!-- 頂部導航欄 -->
+        <header class="top-header bg-white shadow-lg">
+            <div class="header-content max-w-7xl mx-auto px-4 py-3">
+                <div class="flex items-center justify-between">
+                    <div class="logo flex items-center gap-3">
+                        <i class="fas fa-home text-2xl text-blue-600"></i>
+                        <span class="text-xl font-bold text-gray-800">HomeOS</span>
+                    </div>
+
+                    <div class="search-container flex-1 max-w-2xl mx-8">
+                        <div class="search-box relative">
+                            <i
+                                class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" placeholder="搜尋房源、服務或地點..." id="search-input"
+                                class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                        </div>
+                    </div>
+
+                    <div class="header-actions flex items-center gap-4">
+                        <button class="btn-icon" id="notifications-btn" title="通知">
+                            <i class="fas fa-bell"></i>
+                        </button>
+                        <button class="btn-icon" id="settings-btn" title="設定">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        <div class="user-avatar">
+                            <img src="https://via.placeholder.com/40" alt="使用者頭像" class="w-10 h-10 rounded-full" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 生命週期導航 -->
+        <nav class="lifecycle-navigation bg-white shadow-md py-4">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <button class="lifecycle-btn active" data-stage="finding">
+                        <span class="text-2xl">🔍</span>
+                        <div class="text-left">
+                            <div class="font-semibold">尋找理想的家</div>
+                            <div class="text-xs text-gray-600">探索房源、預約看房</div>
+                        </div>
+                    </button>
+                    <button class="lifecycle-btn" data-stage="financing">
+                        <span class="text-2xl">💰</span>
+                        <div class="text-left">
+                            <div class="font-semibold">財務規劃</div>
+                            <div class="text-xs text-gray-600">房貸申請、利率比較</div>
+                        </div>
+                    </button>
+                    <button class="lifecycle-btn" data-stage="moving">
+                        <span class="text-2xl">📦</span>
+                        <div class="text-left">
+                            <div class="font-semibold">順利搬遷</div>
+                            <div class="text-xs text-gray-600">搬家服務、地址變更</div>
+                        </div>
+                    </button>
+                    <button class="lifecycle-btn" data-stage="settling">
+                        <span class="text-2xl">🏠</span>
+                        <div class="text-left">
+                            <div class="font-semibold">打造理想的家</div>
+                            <div class="text-xs text-gray-600">室內設計、傢俱購買</div>
+                        </div>
+                    </button>
+                    <button class="lifecycle-btn" data-stage="managing">
+                        <span class="text-2xl">⚙️</span>
+                        <div class="text-left">
+                            <div class="font-semibold">日常管理</div>
+                            <div class="text-xs text-gray-600">維護提醒、維修服務</div>
+                        </div>
+                    </button>
+                    <button class="lifecycle-btn" data-stage="selling">
+                        <span class="text-2xl">📈</span>
+                        <div class="text-left">
+                            <div class="font-semibold">出售轉換</div>
+                            <div class="text-xs text-gray-600">市場分析、房產估價</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 主要內容區域 -->
+        <main class="main-content max-w-7xl mx-auto px-4 py-6">
+            <!-- 動態儀表板 -->
+            <div id="dynamic-dashboard" class="mb-8">
+                <!-- 歡迎橫幅 -->
+                <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-xl mb-6">
+                    <h2 class="text-2xl font-bold mb-2">
+                        歡迎回來！您的個人化儀表板
+                    </h2>
+                    <p class="opacity-90">
+                        我們檢測到您目前處於「尋找理想的家」階段
+                    </p>
+                </div>
+
+                <!-- 階段專用儀表板內容 -->
+                <div id="stage-dashboard" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- 智慧搜尋卡片 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                            <span class="text-2xl">🔍</span>
+                            智慧搜尋
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                <div>
+                                    <div class="font-medium">已儲存搜尋</div>
+                                    <div class="text-sm text-gray-600">3個活躍搜尋</div>
+                                </div>
+                                <button class="bg-blue-500 text-white px-3 py-1 rounded text-sm">
+                                    查看
+                                </button>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                <div>
+                                    <div class="font-medium">新房源提醒</div>
+                                    <div class="text-sm text-gray-600">5個新符合條件</div>
+                                </div>
+                                <button class="bg-green-500 text-white px-3 py-1 rounded text-sm">
+                                    查看
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 看房行事曆卡片 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                            <span class="text-2xl">📅</span>
+                            看房行事曆
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                                <div>
+                                    <div class="font-medium">明天 14:00</div>
+                                    <div class="text-sm text-gray-600">信義區 3房2廳</div>
+                                </div>
+                                <button class="bg-yellow-500 text-white px-3 py-1 rounded text-sm">
+                                    提醒
+                                </button>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                                <div>
+                                    <div class="font-medium">週六 10:00</div>
+                                    <div class="text-sm text-gray-600">大安區 2房1廳</div>
+                                </div>
+                                <button class="bg-purple-500 text-white px-3 py-1 rounded text-sm">
+                                    提醒
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 鄰里分析卡片 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                            <span class="text-2xl">🏘️</span>
+                            鄰里分析
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg">
+                                <div class="font-medium text-blue-800">信義區生活指數</div>
+                                <div class="text-sm text-blue-600">交通便利度: 9.2/10</div>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg">
+                                <div class="font-medium text-green-800">大安區生活指數</div>
+                                <div class="text-sm text-green-600">生活機能: 9.5/10</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 地圖探索區域 -->
+            <div class="map-exploration-section mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold">地圖探索</h3>
+                    <div class="flex gap-2">
+                        <button class="btn-secondary" id="toggle-map-view">
+                            <i class="fas fa-map"></i>
+                            切換地圖視圖
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 地圖容器 -->
+                <div id="map-container" class="map-container bg-white rounded-xl shadow-md overflow-hidden"
+                    style="height: 400px;">
+                    <!-- 地圖將在這裡載入 -->
+                </div>
+            </div>
+
+            <!-- 推薦服務區域 -->
+            <div class="service-recommendations mb-8">
+                <h3 class="text-xl font-bold mb-4">為您推薦的服務</h3>
+
+                <div class="bg-gradient-to-r from-green-500 to-blue-500 text-white p-6 rounded-xl mb-6">
+                    <h4 class="text-lg font-bold mb-4">基於您的階段推薦</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <button class="service-category-btn" data-category="finance">
+                            <i class="fas fa-university mr-2"></i>
+                            金融服務
+                        </button>
+                        <button class="service-category-btn" data-category="insurance">
+                            <i class="fas fa-shield-alt mr-2"></i>
+                            保險服務
+                        </button>
+                        <button class="service-category-btn" data-category="moving">
+                            <i class="fas fa-truck mr-2"></i>
+                            搬家服務
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 服務提供者列表 -->
+                <div id="service-providers" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- 服務提供者卡片將動態生成 -->
+                </div>
+            </div>
+        </main>
+
+        <!-- 側邊面板 -->
+        <div class="side-panels">
+            <!-- 故事面板 -->
+            <div class="story-panel" id="story-panel">
+                <div class="story-header">
+                    <h3 id="story-title">鄰里故事</h3>
+                    <button class="close-btn" id="close-story">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="story-content">
+                    <div class="narrative-content" id="narrative-content">
+                        <p>選擇地圖上的標記來探索該地點的故事...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 房源詳情面板 -->
+            <div class="property-panel" id="property-panel">
+                <div class="property-header">
+                    <h3>房源詳情</h3>
+                    <button class="close-btn" id="close-property">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="property-content" id="property-content">
+                    <!-- 動態生成房源詳情 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部資訊欄 -->
+        <footer class="bottom-info bg-white border-t">
+            <div class="max-w-7xl mx-auto px-4 py-3">
+                <div class="flex items-center justify-between text-sm text-gray-600">
+                    <span class="location-info" id="location-info">台北市</span>
+                    <span class="map-attribution">© OpenStreetMap contributors</span>
+                    <span class="coordinates" id="coordinates">25.0330, 121.5654</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 使用說明模態框 -->
+    <div class="modal" id="help-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>如何使用 HomeOS</h3>
+                <button class="close-btn" id="close-help">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="help-section">
+                    <h4><i class="fas fa-home"></i> 生命週期導航</h4>
+                    <p>使用頂部的生命週期導航來切換不同的居住階段，系統會根據您的階段提供相應的服務和建議。</p>
+                </div>
+                <div class="help-section">
+                    <h4><i class="fas fa-chart-line"></i> 個人化儀表板</h4>
+                    <p>您的儀表板會根據當前生命週期階段動態調整，顯示最相關的資訊和工具。</p>
+                </div>
+                <div class="help-section">
+                    <h4><i class="fas fa-map-marked-alt"></i> 地圖探索</h4>
+                    <p>在地圖上探索房源和鄰里資訊，點擊標記查看詳細故事和房源資訊。</p>
+                </div>
+                <div class="help-section">
+                    <h4><i class="fas fa-handshake"></i> 服務市集</h4>
+                    <p>瀏覽並預約各種居住相關服務，從金融到搬家，從設計到維修。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 設定模態框 -->
+    <div class="modal" id="settings-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>個人設定</h3>
+                <button class="close-btn" id="close-settings">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <h4>生命週期階段</h4>
+                    <p>目前階段：<span id="current-stage-display">尋找理想的家</span></p>
+                    <button class="btn-primary" id="update-stage-btn">更新階段</button>
+                </div>
+                <div class="settings-section">
+                    <h4>通知設定</h4>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="email-notifications" checked>
+                        電子郵件通知
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="push-notifications" checked>
+                        推播通知
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
