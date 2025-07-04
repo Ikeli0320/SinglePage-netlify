@@ -51,8 +51,92 @@
             </div>
         </div>
         <div class="bg-white rounded-xl shadow p-6 mb-8">
-            <h2 class="text-lg font-bold mb-4">本月趨勢圖（靜態展示）</h2>
-            <div class="h-48 flex items-center justify-center text-gray-400">[圖表區塊]</div>
+            <h2 class="text-lg font-bold mb-4">本月趨勢圖</h2>
+            <div class="h-48 flex items-center justify-center">
+                <div class="w-full max-w-2xl">
+                    <!-- 圖表標題 -->
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-sm text-gray-600">收入趨勢 (萬元)</span>
+                        <div class="flex space-x-4 text-xs">
+                            <span class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-500 rounded mr-1"></div>
+                                成交收入
+                            </span>
+                            <span class="flex items-center">
+                                <div class="w-3 h-3 bg-green-500 rounded mr-1"></div>
+                                其他收入
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- 圖表容器 -->
+                    <div class="relative h-32 bg-gray-50 rounded-lg p-4">
+                        <!-- Y軸標籤 -->
+                        <div class="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500">
+                            <span>80</span>
+                            <span>60</span>
+                            <span>40</span>
+                            <span>20</span>
+                            <span>0</span>
+                        </div>
+
+                        <!-- 圖表區域 -->
+                        <div class="ml-8 h-full flex items-end space-x-2">
+                            <!-- 第1週 -->
+                            <div class="flex-1 flex flex-col items-center">
+                                <div class="w-full bg-blue-500 rounded-t" style="height: 60%;"></div>
+                                <div class="w-full bg-green-500 rounded-t mt-1" style="height: 20%;"></div>
+                                <span class="text-xs text-gray-600 mt-2">第1週</span>
+                            </div>
+
+                            <!-- 第2週 -->
+                            <div class="flex-1 flex flex-col items-center">
+                                <div class="w-full bg-blue-500 rounded-t" style="height: 80%;"></div>
+                                <div class="w-full bg-green-500 rounded-t mt-1" style="height: 15%;"></div>
+                                <span class="text-xs text-gray-600 mt-2">第2週</span>
+                            </div>
+
+                            <!-- 第3週 -->
+                            <div class="flex-1 flex flex-col items-center">
+                                <div class="w-full bg-blue-500 rounded-t" style="height: 45%;"></div>
+                                <div class="w-full bg-green-500 rounded-t mt-1" style="height: 10%;"></div>
+                                <span class="text-xs text-gray-600 mt-2">第3週</span>
+                            </div>
+
+                            <!-- 第4週 -->
+                            <div class="flex-1 flex flex-col items-center">
+                                <div class="w-full bg-blue-500 rounded-t" style="height: 70%;"></div>
+                                <div class="w-full bg-green-500 rounded-t mt-1" style="height: 25%;"></div>
+                                <span class="text-xs text-gray-600 mt-2">第4週</span>
+                            </div>
+                        </div>
+
+                        <!-- 趨勢線 -->
+                        <div class="absolute top-4 left-8 right-4">
+                            <svg class="w-full h-24" viewBox="0 0 100 24">
+                                <path d="M0,18 L25,12 L50,15 L75,10 L100,14" stroke="#3B82F6" stroke-width="2"
+                                    fill="none" stroke-dasharray="5,5" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- 統計摘要 -->
+                    <div class="mt-4 grid grid-cols-3 gap-4 text-center">
+                        <div>
+                            <div class="text-lg font-bold text-blue-600">$627.2萬</div>
+                            <div class="text-xs text-gray-500">本月總收入</div>
+                        </div>
+                        <div>
+                            <div class="text-lg font-bold text-green-600">+12.5%</div>
+                            <div class="text-xs text-gray-500">較上月成長</div>
+                        </div>
+                        <div>
+                            <div class="text-lg font-bold text-blue-600">4筆</div>
+                            <div class="text-xs text-gray-500">成交案件</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="text-right">
             <a href="report.html"
