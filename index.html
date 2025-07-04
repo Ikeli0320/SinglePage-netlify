@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Single Page 專案集</title>
+    <title>Single Page 專案集 - 房地產平台原型展示</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         body {
             font-family: 'Noto Sans TC', sans-serif;
@@ -62,6 +63,55 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
+
+        .estate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .estate-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .estate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .estate-card.homeos {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .estate-card.alphafolio {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+        }
+
+        .estate-card.geostory {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+        }
+
+        .estate-card.traditional {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+        }
+
+        .estate-card.ai-powered {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+        }
+
+        .estate-card.lifestyle {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
     </style>
 </head>
 
@@ -70,10 +120,10 @@
         <!-- Header -->
         <header class="text-center mb-8">
             <h1 class="text-3xl md:text-5xl font-bold text-white mb-3">
-                Single Page 專案集
+                房地產平台原型展示
             </h1>
-            <p class="text-lg text-white/90 max-w-2xl mx-auto">
-                基於 Google Gemini 深度研究 + Canvas 技術的單頁專案集合
+            <p class="text-lg text-white/90 max-w-3xl mx-auto">
+                基於不同設計理念的房地產平台原型集合，從傳統服務到 AI 驅動的創新解決方案
             </p>
         </header>
 
@@ -81,12 +131,12 @@
         <section class="mb-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="card rounded-lg p-4 text-center">
-                    <div class="text-2xl font-bold text-purple-600">7</div>
-                    <div class="text-sm text-gray-600">總專案數</div>
+                    <div class="text-2xl font-bold text-purple-600">6</div>
+                    <div class="text-sm text-gray-600">房地產平台</div>
                 </div>
                 <div class="card rounded-lg p-4 text-center">
-                    <div class="text-2xl font-bold text-blue-600">5</div>
-                    <div class="text-sm text-gray-600">技術棧</div>
+                    <div class="text-2xl font-bold text-blue-600">3</div>
+                    <div class="text-sm text-gray-600">設計理念</div>
                 </div>
                 <div class="card rounded-lg p-4 text-center">
                     <div class="text-2xl font-bold text-green-600">🇹🇼</div>
@@ -94,14 +144,218 @@
                 </div>
                 <div class="card rounded-lg p-4 text-center">
                     <div class="text-2xl font-bold text-orange-600">✅</div>
-                    <div class="text-sm text-gray-600">已部署</div>
+                    <div class="text-sm text-gray-600">原型完成</div>
                 </div>
             </div>
         </section>
 
-        <!-- Main Projects -->
+        <!-- 設計理念說明 -->
         <section class="mb-8">
-            <h2 class="text-2xl font-bold text-white text-center mb-6">📁 主要專案</h2>
+            <div class="card rounded-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">🎯 三大設計理念</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🏠</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">全生命週期管家</h3>
+                        <p class="text-gray-600 text-sm">HomeOS - 從尋找到出售的完整居住旅程管理</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">📊</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">資產情報終端</h3>
+                        <p class="text-gray-600 text-sm">Alphafolio - 專業投資者的數據驅動決策平台</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🗺️</div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">地理故事導向</h3>
+                        <p class="text-gray-600 text-sm">美樂地產 - 基於地理空間的探索式體驗</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 房地產平台原型 -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold text-white text-center mb-6">🏢 房地產平台原型</h2>
+            <div class="estate-grid">
+                <!-- HomeOS -->
+                <div class="estate-card homeos">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-home text-3xl mr-3"></i>
+                        <div>
+                            <h3 class="text-xl font-bold">HomeOS</h3>
+                            <p class="text-white/80 text-sm">全生命週期房地產管家</p>
+                        </div>
+                    </div>
+                    <p class="text-white/90 mb-4 text-sm">
+                        基於「全生命週期管家」理念，提供從尋找、融資、搬遷、安居、管理到出售的完整服務生態系。
+                        整合 AI 生命週期預測引擎和動態儀表板。
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">生命週期導航</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">AI 預測</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">服務生態系</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">動態儀表板</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="estate_os/index.html"
+                            class="bg-white text-purple-600 px-4 py-2 rounded font-semibold hover:bg-gray-100 transition-colors text-sm">
+                            <i class="fas fa-external-link-alt mr-1"></i>查看原型
+                        </a>
+                        <a href="estate_os/doc/prototype-architecture.md"
+                            class="bg-white/20 text-white px-4 py-2 rounded font-semibold hover:bg-white/30 transition-colors text-sm">
+                            <i class="fas fa-file-alt mr-1"></i>架構文件
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Alphafolio -->
+                <div class="estate-card alphafolio">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-chart-line text-3xl mr-3"></i>
+                        <div>
+                            <h3 class="text-xl font-bold">Alphafolio</h3>
+                            <p class="text-white/80 text-sm">房地產資產情報終端</p>
+                        </div>
+                    </div>
+                    <p class="text-white/90 mb-4 text-sm">
+                        專為專業投資者設計的「彭博終端機」風格平台，提供量化篩選器、Alpha 儀表板、
+                        資產分析終端等機構級工具。
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">量化篩選</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">Alpha 儀表板</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">風險監測</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">資產分析</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="estate_fn/index.html"
+                            class="bg-white text-gray-800 px-4 py-2 rounded font-semibold hover:bg-gray-100 transition-colors text-sm">
+                            <i class="fas fa-external-link-alt mr-1"></i>查看原型
+                        </a>
+                        <a href="estate_fn/doc/designcore.md"
+                            class="bg-white/20 text-white px-4 py-2 rounded font-semibold hover:bg-white/30 transition-colors text-sm">
+                            <i class="fas fa-file-alt mr-1"></i>設計文件
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 美樂地產 (地理故事) -->
+                <div class="estate-card geostory">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-map-marked-alt text-3xl mr-3"></i>
+                        <div>
+                            <h3 class="text-xl font-bold">美樂地產</h3>
+                            <p class="text-white/80 text-sm">地理故事導向平台</p>
+                        </div>
+                    </div>
+                    <p class="text-white/90 mb-4 text-sm">
+                        以地圖為中心的探索式體驗，整合歷史、生活、機能、未來四大故事圖層，
+                        實現「地圖即介面，探索即搜尋」的創新理念。
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">地圖即介面</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">故事圖層</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">湧現式發現</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">OpenStreetMap</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="estate_tn/index.html"
+                            class="bg-white text-orange-600 px-4 py-2 rounded font-semibold hover:bg-gray-100 transition-colors text-sm">
+                            <i class="fas fa-external-link-alt mr-1"></i>查看原型
+                        </a>
+                        <a href="estate_tn/doc/ui-ux-architecture.md"
+                            class="bg-white/20 text-white px-4 py-2 rounded font-semibold hover:bg-white/30 transition-colors text-sm">
+                            <i class="fas fa-file-alt mr-1"></i>架構文件
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 傳統房地產平台 -->
+                <div class="estate-card traditional">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-building text-3xl mr-3"></i>
+                        <div>
+                            <h3 class="text-xl font-bold">美樂不動產</h3>
+                            <p class="text-white/80 text-sm">傳統房地產服務</p>
+                        </div>
+                    </div>
+                    <p class="text-white/90 mb-4 text-sm">
+                        經典的房地產平台設計，提供房源列表、搜尋篩選、詳細資訊等基本功能，
+                        適合一般購房者和租客使用。
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">房源列表</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">搜尋篩選</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">詳細資訊</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">響應式設計</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="estate/index.html"
+                            class="bg-white text-green-600 px-4 py-2 rounded font-semibold hover:bg-gray-100 transition-colors text-sm">
+                            <i class="fas fa-external-link-alt mr-1"></i>查看原型
+                        </a>
+                    </div>
+                </div>
+
+                <!-- AI 驅動平台 -->
+                <div class="estate-card ai-powered">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-robot text-3xl mr-3"></i>
+                        <div>
+                            <h3 class="text-xl font-bold">美樂智能不動產</h3>
+                            <p class="text-white/80 text-sm">AI 驅動平台</p>
+                        </div>
+                    </div>
+                    <p class="text-white/90 mb-4 text-sm">
+                        整合 AI 功能的房地產平台，提供智慧推薦、預測分析、自動化服務等功能，
+                        提升用戶體驗和決策效率。
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">AI 推薦</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">預測分析</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">智慧搜尋</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">自動化</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="estate_ai/index.html"
+                            class="bg-white text-purple-600 px-4 py-2 rounded font-semibold hover:bg-gray-100 transition-colors text-sm">
+                            <i class="fas fa-external-link-alt mr-1"></i>查看原型
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 生活方式平台 -->
+                <div class="estate-card lifestyle">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-heart text-3xl mr-3"></i>
+                        <div>
+                            <h3 class="text-xl font-bold">美樂宜居探索平台</h3>
+                            <p class="text-white/80 text-sm">生活方式導向</p>
+                        </div>
+                    </div>
+                    <p class="text-white/90 mb-4 text-sm">
+                        基於情感和生活方式探索的房地產平台，提供視覺化資料分析、
+                        社區氛圍評估、生活品質指標等功能。
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">情感分析</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">生活方式</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">視覺化</span>
+                        <span class="bg-white/20 text-white px-2 py-1 rounded text-xs">社區評估</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="estate_vb/index.html"
+                            class="bg-white text-red-600 px-4 py-2 rounded font-semibold hover:bg-gray-100 transition-colors text-sm">
+                            <i class="fas fa-external-link-alt mr-1"></i>查看原型
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 其他專案 -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold text-white text-center mb-6">📁 其他專案</h2>
             <div class="compact-grid">
                 <!-- Korea Travel -->
                 <div class="project-card rounded-lg p-6">
@@ -144,160 +398,10 @@
             </div>
         </section>
 
-        <!-- Estate Projects -->
-        <section class="mb-8">
-            <h2 class="text-2xl font-bold text-white text-center mb-6">🏠 房地產專案</h2>
-            <div class="compact-grid">
-                <!-- 美樂不動產 -->
-                <div class="mini-card">
-                    <div class="flex items-center mb-3">
-                        <span class="text-2xl mr-2">🏘️</span>
-                        <h3 class="text-lg font-bold">美樂不動產</h3>
-                    </div>
-                    <p class="text-gray-600 mb-3 text-sm">專業房地產服務平台，提供房源列表和基本篩選功能</p>
-                    <div class="flex gap-2 mb-3">
-                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">HTML</span>
-                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">CSS</span>
-                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">JS</span>
-                    </div>
-                    <a href="estate/index.html"
-                        class="inline-block bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
-                        查看專案 →
-                    </a>
-                </div>
-
-                <!-- 美樂智能不動產 -->
-                <div class="mini-card">
-                    <div class="flex items-center mb-3">
-                        <span class="text-2xl mr-2">🤖</span>
-                        <h3 class="text-lg font-bold">美樂智能不動產</h3>
-                    </div>
-                    <p class="text-gray-600 mb-3 text-sm">整合 AI 功能的房地產平台，提供智慧推薦和預測分析</p>
-                    <div class="flex gap-2 mb-3">
-                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">AI</span>
-                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">ML</span>
-                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">預測</span>
-                    </div>
-                    <a href="estate_ai/index.html"
-                        class="inline-block bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700 transition-colors">
-                        查看專案 →
-                    </a>
-                </div>
-
-                <!-- 美樂宜居探索平台 -->
-                <div class="mini-card">
-                    <div class="flex items-center mb-3">
-                        <span class="text-2xl mr-2">📊</span>
-                        <h3 class="text-lg font-bold">美樂宜居探索平台</h3>
-                    </div>
-                    <p class="text-gray-600 mb-3 text-sm">基於情感和生活方式探索的房地產平台，提供視覺化資料分析</p>
-                    <div class="flex gap-2 mb-3">
-                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">情感</span>
-                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">生活</span>
-                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">探索</span>
-                    </div>
-                    <a href="estate_vb/index.html"
-                        class="inline-block bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700 transition-colors">
-                        查看專案 →
-                    </a>
-                </div>
-
-                <!-- 美樂地產 -->
-                <div class="mini-card">
-                    <div class="flex items-center mb-3">
-                        <span class="text-2xl mr-2">🗺️</span>
-                        <h3 class="text-lg font-bold">美樂地產</h3>
-                    </div>
-                    <p class="text-gray-600 mb-3 text-sm">地理故事導向的房地產平台，OpenStreetMap 整合</p>
-                    <div class="flex gap-2 mb-3">
-                        <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">地圖</span>
-                        <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">故事</span>
-                        <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">探索</span>
-                    </div>
-                    <a href="estate_tn/index.html"
-                        class="inline-block bg-orange-600 text-white px-3 py-1 rounded text-sm hover:bg-orange-700 transition-colors">
-                        查看專案 →
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tech Stack -->
-        <section class="mb-8">
-            <h2 class="text-2xl font-bold text-white text-center mb-6">🛠️ 技術架構</h2>
-            <div class="card rounded-lg p-6">
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                    <div class="tech-badge rounded-lg p-3 text-center">
-                        <div class="text-xl mb-1">🌐</div>
-                        <div class="font-semibold text-sm">HTML5</div>
-                    </div>
-                    <div class="tech-badge rounded-lg p-3 text-center">
-                        <div class="text-xl mb-1">🎨</div>
-                        <div class="font-semibold text-sm">CSS3</div>
-                    </div>
-                    <div class="tech-badge rounded-lg p-3 text-center">
-                        <div class="text-xl mb-1">⚡</div>
-                        <div class="font-semibold text-sm">JavaScript</div>
-                    </div>
-                    <div class="tech-badge rounded-lg p-3 text-center">
-                        <div class="text-xl mb-1">🎯</div>
-                        <div class="font-semibold text-sm">Tailwind</div>
-                    </div>
-                    <div class="tech-badge rounded-lg p-3 text-center">
-                        <div class="text-xl mb-1">📊</div>
-                        <div class="font-semibold text-sm">Chart.js</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Quick Start -->
-        <section class="mb-8">
-            <h2 class="text-2xl font-bold text-white text-center mb-6">🚀 快速開始</h2>
-            <div class="card rounded-lg p-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div class="text-center">
-                        <div class="text-2xl mb-2">1️⃣</div>
-                        <h3 class="text-base font-bold mb-1">啟動伺服器</h3>
-                        <p class="text-gray-600 text-sm">使用提供的 shell script</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-2xl mb-2">2️⃣</div>
-                        <h3 class="text-base font-bold mb-1">選擇專案</h3>
-                        <p class="text-gray-600 text-sm">點擊上方專案連結</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-2xl mb-2">3️⃣</div>
-                        <h3 class="text-base font-bold mb-1">開始探索</h3>
-                        <p class="text-gray-600 text-sm">體驗互動功能</p>
-                    </div>
-                </div>
-
-                <div class="bg-gray-50 rounded-lg p-4">
-                    <h4 class="font-bold mb-2 text-sm">本地開發指令：</h4>
-                    <div class="space-y-1 text-xs">
-                        <div class="bg-gray-100 p-2 rounded">
-                            <span class="font-mono">./start-http-server.sh</span>
-                        </div>
-                        <div class="bg-gray-100 p-2 rounded">
-                            <span class="font-mono">python3 -m http.server 8000</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Footer -->
-        <footer class="text-center">
-            <div class="card rounded-lg p-6">
-                <h3 class="text-xl font-bold mb-2">🤝 專案資訊</h3>
-                <p class="text-gray-600 mb-3 text-sm">
-                    基於 Google Gemini 深度研究 + Canvas 技術，提供有價值的資訊和互動體驗
-                </p>
-                <div class="text-xs text-gray-500">
-                    <p>最後更新: 2025年7月 | 部署平台: Netlify</p>
-                </div>
-            </div>
+        <footer class="text-center text-white/80">
+            <p class="mb-2">© 2024 Single Page 專案集</p>
+            <p class="text-sm">基於 Google Gemini 深度研究 + Canvas 技術開發</p>
         </footer>
     </div>
 </body>
